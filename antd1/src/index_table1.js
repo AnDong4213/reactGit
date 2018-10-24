@@ -25,7 +25,7 @@ const columns = [
         title: 'Tags4',
         dataIndex: 'tags',
         key: 'tags',
-        render: tags => (
+        render: tags  => (
             <em>
                 {tags.map(tag => <Tag color="red" key={tag}>{tag}</Tag>)}
             </em>

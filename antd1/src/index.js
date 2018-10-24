@@ -26,7 +26,8 @@ class HorizontalLoginForm extends React.Component {
         })
     }
     handleReset = (e) => {
-      this.props.form.resetFields()
+        console.log(e)
+        this.props.form.resetFields()
     }
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
