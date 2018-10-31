@@ -2,47 +2,54 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 
-import { Modal, Button } from 'antd';
+import { Table } from 'antd';
 
-class App extends React.Component {
-    state = { visible: true };
+const columns = [{
+    title: 'Name',
+    dataIndex: 'name'
+  }, {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+    width: '12%',
+  }, {
+    title: 'Address',
+    dataIndex: 'address',
+    width: '30%',
+    key: 'address',
+  }];
 
-    showModal = () => {
-        this.setState({
-          visible: true,
-        });
-    }
-    handleOk = (e) => {
-        console.log('ooo');
-        this.setState({
-          visible: false,
-        });
-    }
-    handleCancel = (e) => {
-        console.log('e');
-        this.setState({
-          visible: false,
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                <Button type="primary" onClick={this.showModal}>Open Modal</Button>
-                <Modal
-                    title="Basic Modal"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                    footer={null}
-                    >
-                    <p style={{textAlign: 'center',color: '#f0f'}}>Some contents...</p>
-                </Modal>
-            </div>
-        )
-    }
-}
-ReactDOM.render(<App />, document.getElementById('root'));
+  const data = [{
+    key: 1,
+    name: 'John Brown sr.',
+    age: 60,
+    address: 'New York No. 1 Lake Park',
+    children: [{
+      key: 21,
+      name: 'John Brown',
+      age: 42,
+      address: 'New York No. 2 Lake Park',
+      kk: 99
+    }, {
+      key: 12,
+      name: 'John Brown jr.',
+      age: 30,
+      address: 'New York No. 3 Lake Park'
+    }]
+  }, {
+    key: 2,
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    children: [{
+        key: 111,   
+        name: 'John Brown',
+        age: 42,
+        address: 'New York No. 2 Lake Park',
+      }]
+  }
+];
+ReactDOM.render(<Table columns={columns} dataSource={data} />, document.getElementById('root'));
 
 
 
