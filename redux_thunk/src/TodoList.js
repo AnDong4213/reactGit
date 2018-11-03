@@ -15,9 +15,9 @@ export default class TodoList extends Component {
         store.subscribe(this.handleStoreChange)
     }
     componentDidMount() {
-        // 使用了中间件
+        // 使用了中间件.......
         const action = getTodoList()
-        // console.log(action)
+        // console.log(store)
         store.dispatch(action)
     }
     handleStoreChange() {

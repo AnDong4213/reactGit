@@ -7,9 +7,10 @@ export const HeaderWrapper = styled.div`
 	height: 56px;
 	border-bottom: 1px solid pink;
 `
-export const Logo = styled.a.attrs({
+/* export const Logo = styled.a.attrs({
 	href: '/'
-})`
+})` */
+export const Logo = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;

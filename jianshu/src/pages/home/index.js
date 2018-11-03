@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+// PureComponent最好与immutable一起使用，否则可能会出现坑... 
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
+import { actionCreateors } from './store';
 import logoPic from '../../statics/ban.jpg';
 import Topic from './components/Topic';
 import List from './components/List';
@@ -11,10 +12,17 @@ import Recommend from './components/Recommend';
 import {
     HomeWrapper,
     HomeLeft,
-    HomeRight
+    HomeRight,
+    BackTop
 } from './style';
 
-class Home extends Component {
+class Home extends PureComponent {
+    /* shouldComponentUpdate() {
+        return true;
+    } */
+    handleScrollTop() {
+        window.scrollTo(0, 0);
+    }
     render() {
         return (
             <HomeWrapper>
@@ -27,30 +35,40 @@ class Home extends Component {
                     <Recommend />
                     <Write />
                 </HomeRight>
+                { this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>回到顶部</BackTop> : null }
             </HomeWrapper>
         )
     }
     componentDidMount() {
-        axios.get('/api/home.json').then(res => {
-            let result = res.data.data;
-            let action = {
-                type: 'change_home_data',
-                articleList: result.articleList,
-                recommendList: result.recommendList,
-                topicList: result.topicList
-            }
-            this.props.changeHomeData(action);
-        })
+        this.props.changeHomeData();
+        this.bindEvents();
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.props.changeScrollTopShow)
+    }
+    bindEvents() {
+        window.addEventListener('scroll', this.props.changeScrollTopShow)
     }
 }
 
+const mapState = (state) => ({
+    showScroll: state.getIn(['home', 'showScroll'])
+})
 const mapDispatch = (dispatch) => ({
-    changeHomeData(action) {
+    changeHomeData() {
+        const action = actionCreateors.getHomeInfo();
         dispatch(action)
+    },
+    changeScrollTopShow() {
+        if (document.documentElement.scrollTop > 400) {
+            dispatch(actionCreateors.toggleTopShow(true))
+        } else {
+            dispatch(actionCreateors.toggleTopShow(false))
+        }
     }
 })
 
-export default connect(null, mapDispatch)(Home);
+export default connect(mapState, mapDispatch)(Home);
 
 
 
