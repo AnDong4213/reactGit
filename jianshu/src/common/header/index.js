@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 // import * as actionCreators from './store/actionCreators';
 import { actionCreators } from './store';
+import { actionCreateors as loginActionCreateors } from '../../pages/login/store';
 
 import {
     HeaderWrapper,
@@ -58,7 +59,7 @@ class Header extends Component {
         }
     }
     render() {
-        const { focused, handleInputFocus, handleInputBlur, list, login } = this.props;
+        const { focused, handleInputFocus, handleInputBlur, list, login, logout } = this.props;
         return (
             <HeaderWrapper>
                 <Link to='/'>
@@ -68,7 +69,7 @@ class Header extends Component {
                     <NavItem className="left active">首页</NavItem>
                     <NavItem className="left">下载APP</NavItem>
                     {
-                        login ? <NavItem className="right">退出</NavItem> : 
+                        login ? <NavItem style={{cursor: 'pointer'}} onClick={logout} className="right">退出</NavItem> : 
                         <Link to='/login'><NavItem className="right">登录</NavItem></Link>
                     }
                     <NavItem className="right">
@@ -91,10 +92,12 @@ class Header extends Component {
                     </SearchWrapper>
                 </Nav>
                 <Addition>
-                    <Button className="reg">
-                        <i className="iconfont">&#xe615;</i>
-                        写文章
-                    </Button>
+                    <Link to='/write'>
+                        <Button className="reg">
+                            <i className="iconfont">&#xe615;</i>
+                            写文章
+                        </Button>
+                    </Link>
                     <Button className="writting">注册</Button>
                 </Addition>
             </HeaderWrapper>
@@ -146,6 +149,9 @@ const mapDispatchToProps = (dispatch) => {
             } else {
                 dispatch(actionCreators.changePage(1))
             }
+        },
+        logout() {
+            dispatch(loginActionCreateors.logOut())
         }
     }
 }

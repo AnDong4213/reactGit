@@ -19,3 +19,8 @@ export const login = (account, password) => {
     }
 }
 
+export const logOut = () => ({
+    type: constants.LOGOUT,
+    value: false
+})
+
