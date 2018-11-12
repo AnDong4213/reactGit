@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Button, Input } from 'antd';
+// import 'antd/dist/antd.css';
+import './index.less';
 
 import Child from './Child';
 import Child2 from './Child2';
@@ -52,8 +55,9 @@ export default class Life extends Component {
     render() {
         console.log('render父')
         return (
-            <div>
-                <button onClick={this.handleAdd.bind(this)}>点击</button>
+            <div className="content">
+                <Input />
+                <Button onClick={this.handleAdd.bind(this)}>点击</Button>
                 <button onClick={this.handleClick}>点击</button>
                 <p>{this.state.count}</p>
                 <Child name="看看"></Child>
