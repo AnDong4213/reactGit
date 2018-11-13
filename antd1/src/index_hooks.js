@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-class Example extends React.Component {
+/* class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +18,19 @@ class Example extends React.Component {
       </div>
     );
   }
+} */
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
 }
 
 ReactDOM.render(<Example />, document.getElementById('root'));
