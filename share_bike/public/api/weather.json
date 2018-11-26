@@ -1,0 +1,25 @@
+{
+	"info": "OK",
+	"forecasts": [
+		{
+			"adcode": "110101",
+			"casts": [
+				{
+					"date": "2018-11-19",
+					"daypower": "≤3",
+					"daytemp": "10",
+					"dayweather": "晴",
+					"daywind": "西南",
+					"nightpower": "≤3",
+					"nighttemp": "-2",
+					"nightweather": "多云",
+					"nightwind": "无风向",
+					"week": "1"
+				}
+			],
+			"city": "顺义区",
+			"province": "北京",
+			"reporttime": "2018-11-19 18:00:00"
+		}
+	]
+}

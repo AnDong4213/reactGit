@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class TodoList extends Component {
+export default class App extends Component {
     render() {
         return (
             <div>
-                教教
+                {this.props.children}
             </div>
         )
     }

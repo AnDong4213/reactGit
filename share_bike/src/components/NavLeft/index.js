@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Menu } from 'antd';
 import MenuConfig from './../../config/menuConfig';
@@ -13,7 +14,7 @@ export default class NavLeft extends React.Component {
             menuTreeNode
         })
     }
-    // 菜单渲染
+    // 菜单渲染  递归
     renderMenu = (data) => {
         return data.map(item => {
             if (item.children) {
@@ -25,7 +26,9 @@ export default class NavLeft extends React.Component {
                     </SubMenu>
                 )
             }
-            return <Menu.Item key={item.key}>{item.title}</Menu.Item>
+            return <Menu.Item key={item.key}>
+                <NavLink to={item.key}>{item.title}</NavLink>
+            </Menu.Item>
         })
     }
     render() {

@@ -1,160 +1,80 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css';
 
-import { AutoComplete, Input, Icon } from 'antd';
 
-function onSelect(value) {
-  console.log('onSelect', value);
-}
-function debounce(func, wait) {
-	let timer
-	
-	return function (...para) {
-		if (timer) {
-			clearTimeout(timer)
-		}
-		timer = setTimeout(() => {
-			func.apply(this, para)
-		}, wait)
-	}
+import { Form, Icon, Input, Button } from 'antd';
+let FormItem = Form.Item;
+
+function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 
-class Complete extends React.Component {
-  state = {
-    dataSource: [],
-  }
+class HorizontalLoginForm extends React.Component {
+    componentDidMount() {
+        this.props.form.validateFields();
+    }
+    // validateFields	校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件
+    handleSearch = (e) => {
+        e && e.preventDefault();
+        // this.props.form.validateFields(['password'], (err, values) => {
+        this.props.form.validateFields((err, values) => {
+            /*if (!err) {
+                console.log('Received values of form: ', values);
+            }*/
+            console.log(values);
+            console.log(err);
+        })
+    }
+    handleReset = (e) => {
+        console.log(e)
+        this.props.form.resetFields()
+    }
+    render() {
+        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+        // isFieldTouched  判断一个输入控件是否经历过 getFieldDecorator 的值收集时机 options.trigger
+        // getFieldError	获取某个输入控件的 Error
+        // getFieldsError	获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error
+        const userNameError = isFieldTouched('userName') && getFieldError('userName');
+        const passwordError = isFieldTouched('password') && getFieldError('password');
 
-  handleSearch = (value) => {
-
-    this.setState({
-      dataSource: [
-        'value',
-        'value + value',
-        'value + value + value',,
-      ],
-    });
-  }
-
-  render() {
-    const { dataSource } = this.state;
-    return (
-      <AutoComplete
-        dataSource={dataSource}
-        style={{ width: 200 }}
-        onSelect={onSelect}
-        onSearch={this.handleSearch}
-        placeholder="input here"
-      >
-      <Input suffix={<Icon type="search" />} />
-      </AutoComplete>
-    );
-  }
+        return (
+            <Form layout="inline" onSubmit={this.handleSearch}>
+                <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
+                    {getFieldDecorator('userName', {
+                        rules: [{ required: true, message: '请输入姓名' }]
+                    })(
+                        <Input prefix={<Icon type="user" style={{ color: 'pink' }} />} placeholder="Username" />
+                    )}
+                </FormItem>
+                <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: '请输入密码' }],
+                    })(
+                        <Input prefix={<Icon type="lock" style={{ color: 'blue' }} />} type="password" placeholder="Password" />
+                    )}
+                </FormItem>
+                <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+                    {getFieldDecorator('tel', {
+                        rules: [{ required: true, message: '请输入号码', pattern: /^1[3|4|5|7|8]\d{9}$/ }],
+                    })(
+                        <Input prefix={<Icon type="phone" style={{ color: 'blue' }} />} type="tel" placeholder="Tel" />
+                    )}
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>Log in</Button>
+                    <Button onClick={this.handleReset} type="primary">清空</Button>
+                </FormItem>
+            </Form>
+        )
+    }
 }
-
-/* import { Icon, Input, AutoComplete } from 'antd';
-
-const Option = AutoComplete.Option;
-const OptGroup = AutoComplete.OptGroup;
-
-const dataSource = [{
-  title: '话题',
-  children: [{
-    title: 'AntDesign',
-    count: 10000,
-  }, {
-    title: 'AntDesign UI',
-    count: 10600,
-  }],
-}, {
-  title: '问题',
-  children: [{
-    title: 'AntDesign UI 有多好',
-    count: 60100,
-  }, {
-    title: 'AntDesign 是啥',
-    count: 30010,
-  }],
-}, {
-  title: '文章',
-  children: [{
-    title: 'AntDesign 是一个设计语言',
-    count: 100000,
-  }],
-}];
-
-function renderTitle(title) {
-  return (
-    <span>
-      {title}
-      <a
-        style={{ float: 'right' }}
-        href="https://www.google.com/search?q=antd"
-        target="_blank"
-        rel="noopener noreferrer"
-      >更多
-      </a>
-    </span>
-  );
-}
-
-const options = dataSource.map(group => (
-  <OptGroup
-    key={group.title}
-    label={renderTitle(group.title)}
-  >
-    {group.children.map(opt => (
-      <Option key={opt.title} value={opt.title}>
-        {opt.title}
-        <span className="certain-search-item-count">{opt.count} 人 关注</span>
-      </Option>
-    ))}
-  </OptGroup>
-)).concat([
-  <Option disabled key="all" className="show-all">
-    <a
-      href="https://www.google.com/search?q=antd"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      查看所有结果
-    </a>
-  </Option>,
-]);
-
-function Complete() {
-  return (
-    <div className="certain-category-search-wrapper" style={{ width: 250 }}>
-      <AutoComplete
-        className="certain-category-search"
-        dropdownClassName="certain-category-search-dropdown"
-        dropdownMatchSelectWidth={false}
-        dropdownStyle={{ width: 300 }}
-        size="large"
-        style={{ width: '100%' }}
-        dataSource={options}
-        placeholder="input here"
-        optionLabelProp="value"
-      >
-        <Input suffix={<Icon type="search" />} />
-      </AutoComplete>
-    </div>
-  );
-} */
-
-ReactDOM.render(<Complete />, document.getElementById('root'));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// disabled={hasErrors(getFieldsError())}
+const WrappedHorizontalLoginForm = Form.create(
+  /*{
+    onValuesChange: (props, changedValues, allValues) => {
+      console.log(allValues);
+    }
+  }*/
+)(HorizontalLoginForm);
+ReactDOM.render(<WrappedHorizontalLoginForm />, document.getElementById('root'));

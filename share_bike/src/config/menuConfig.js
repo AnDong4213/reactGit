@@ -9,45 +9,35 @@ const menuList = [
         children: [
             {
                 title: '按钮',
-                key: '/ui/buttons',
-                children: [
-                    {
-                        title: '11',
-                        key: '111',
-                    },
-                    {
-                        title: '22',
-                        key: '222',
-                    }
-                ]
+                key: '/admin/ui/buttons'
             },
             {
                 title: '弹框',
-                key: '/ui/modals',
+                key: '/admin/ui/modals',
             },
             {
                 title: 'Loading',
-                key: '/ui/loadings',
+                key: '/admin/ui/loadings',
             },
             {
                 title: '通知提醒',
-                key: '/ui/notification',
+                key: '/admin/ui/notification',
             },
             {
                 title: '全局Message',
-                key: '/ui/messages',
+                key: '/admin/ui/messages',
             },
             {
                 title: 'Tab页签',
-                key: '/ui/tabs',
+                key: '/admin/ui/tabs',
             },
             {
                 title: '图片画廊',
-                key: '/ui/gallery',
+                key: '/admin/ui/gallery',
             },
             {
                 title: '轮播图',
-                key: '/ui/carousel',
+                key: '/admin/ui/carousel',
             }
         ]
     },
@@ -57,11 +47,11 @@ const menuList = [
         children: [
             {
                 title: '登录',
-                key: '/form/login',
+                key: '/admin/form/login',
             },
             {
                 title: '注册',
-                key: '/form/reg',
+                key: '/admin/form/reg',
             }
         ]
     },
@@ -71,11 +61,11 @@ const menuList = [
         children: [
             {
                 title: '基础表格',
-                key: '/table/basic',
+                key: '/admin/table/basic',
             },
             {
                 title: '高级表格',
-                key: '/table/high',
+                key: '/admin//table/high',
             }
         ]
     },

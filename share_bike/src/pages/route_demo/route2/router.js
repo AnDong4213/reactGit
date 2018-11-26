@@ -5,6 +5,7 @@ import About from './About';
 import Main from './Main';
 import Topic from './Topic';
 import Home from './Home';
+import A from './A';
 
 export default class IRouter extends React.Component {
     render() {
@@ -14,7 +15,8 @@ export default class IRouter extends React.Component {
                     <Home />
                     <Route path="/main" render={() => 
                         <Main>
-                            <Route path="/main/a" component={About}></Route>
+                            <Route path="/main/a" component={A}></Route>
+                            <p>仅测试</p>
                         </Main>
                     }></Route>
                     {/* <Route path="/" exact component={Main}></Route> */}

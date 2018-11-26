@@ -9,21 +9,15 @@ export default class Home extends React.Component {
         return (
             <div>
                 <ul>
-                    <li><Link to="/main">Main1</Link></li>
+                <li><Link to="/main">Main1</Link></li>
                     {/* <li><Link to="/">Main1</Link></li> */}
                     <li><Link to="/about">About1</Link></li>
                     <li><Link to="/topic">Topic1</Link></li>
                     <li><Link to="/imooc1">imooc1</Link></li>
                     <li><Link to="/imooc2">imooc2</Link></li>
-                    <hr />
-                </ul>
-                {/* <ul>
-                    <li><Link to="/">Main1</Link></li>
-                    <li><Link to="/about">About1</Link></li>
-                    <li><Link to="/topic">Topic1</Link></li>
                 </ul>
                 <hr />
-                {this.props.children} */}
+                {this.props.children}
             </div>
         )
     }
