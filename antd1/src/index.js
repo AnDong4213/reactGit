@@ -2,79 +2,138 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 
+import { Table, Button } from 'antd';
 
-import { Form, Icon, Input, Button } from 'antd';
-let FormItem = Form.Item;
+const prdType = [
+    {
+        prdTypeName: 'aa',
+        prdType: 'A'
+    },
+    {
+        prdTypeName: 'bb',
+        prdType: 'B'
+    },
+    {
+        prdTypeName: 'cc',
+        prdType: 'C'
+    },
+]
+const columns = [{
+    title: 'Name1',
+    dataIndex: 'name',
+    key: 'name',
+    filters: prdType ? prdType.map((val, key) => (val && {text: val['prdTypeName'], value: val['prdType']})) : [],
+    filterMultiple: false,
+    filteredValue: ['C']
+  }, {
+    title: 'Age2',
+    dataIndex: 'age',
+    key: 'age'
+  }, {
+    title: 'Address3',
+    dataIndex: 'address',
+    key: 'address'
+}];
 
-function hasErrors(fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field])
+const data = [];
+for (let i = 0; i < 100; i++) {
+    data.push({
+        key: i,
+        name: `Edward King ${i}`,
+        age: `${i}`,
+        address: `London, Park Lane no. ${i}`,
+    })
 }
 
-class HorizontalLoginForm extends React.Component {
+class App extends React.Component {
+    /* constructor(props) {
+        super(props);
+        this.state = {
+            selectedRowKeys: [],
+            loading: false
+        }
+    } */
     componentDidMount() {
-        this.props.form.validateFields();
+        // console.log('生命周期')
     }
-    // validateFields	校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件
-    handleSearch = (e) => {
-        e && e.preventDefault();
-        // this.props.form.validateFields(['password'], (err, values) => {
-        this.props.form.validateFields((err, values) => {
-            /*if (!err) {
-                console.log('Received values of form: ', values);
-            }*/
-            console.log(values);
-            console.log(err);
-        })
+    state = {
+        selectedRowKeys: [],
+        loading: false
     }
-    handleReset = (e) => {
-        console.log(e)
-        this.props.form.resetFields()
+    hihi = (aa, bb, cc) => {
+        console.log(aa); // {current: '', pageSize: ''}
+        console.log(bb);
+        for (let k in bb) {
+            if (bb[k]) {
+                console.log(bb[k][0])
+            }
+        }
+        console.log(cc);
+    }
+    start = () => {
+        this.setState({ loading: true });
+        setTimeout(() => {
+            this.setState({
+              selectedRowKeys: [],
+              loading: false,
+            });
+        }, 1000);
+    }
+    onSelectChange = (selectedRowKeys) => {
+        // console.log('selectedRowKeys changed: ', selectedRowKeys);
+        this.setState({ selectedRowKeys });
+    }
+    onSelectItem = (aa) => {
+        console.log(aa)
+    }
+    onRowClick = (record,index) => {
+        /* console.log(record);
+        console.log(index); */
+        this.setState({ 
+            selectedRowKeys: [index]
+         });
     }
     render() {
-        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-        // isFieldTouched  判断一个输入控件是否经历过 getFieldDecorator 的值收集时机 options.trigger
-        // getFieldError	获取某个输入控件的 Error
-        // getFieldsError	获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error
-        const userNameError = isFieldTouched('userName') && getFieldError('userName');
-        const passwordError = isFieldTouched('password') && getFieldError('password');
-
+        const { loading, selectedRowKeys } = this.state;
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange,
+            onSelect: this.onSelectItem,
+            type: 'radio'
+        };
+        const hasSelected = selectedRowKeys.length > 0;
         return (
-            <Form layout="inline" onSubmit={this.handleSearch}>
-                <FormItem validateStatus={userNameError ? 'error' : ''} help={userNameError || ''}>
-                    {getFieldDecorator('userName', {
-                        rules: [{ required: true, message: '请输入姓名' }]
-                    })(
-                        <Input prefix={<Icon type="user" style={{ color: 'pink' }} />} placeholder="Username" />
-                    )}
-                </FormItem>
-                <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-                    {getFieldDecorator('password', {
-                        rules: [{ required: true, message: '请输入密码' }],
-                    })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'blue' }} />} type="password" placeholder="Password" />
-                    )}
-                </FormItem>
-                <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-                    {getFieldDecorator('tel', {
-                        rules: [{ required: true, message: '请输入号码', pattern: /^1[3|4|5|7|8]\d{9}$/ }],
-                    })(
-                        <Input prefix={<Icon type="phone" style={{ color: 'blue' }} />} type="tel" placeholder="Tel" />
-                    )}
-                </FormItem>
-                <FormItem>
-                    <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>Log in</Button>
-                    <Button onClick={this.handleReset} type="primary">清空</Button>
-                </FormItem>
-            </Form>
+            <div>
+                <div style={{marginBottom: 16}}>
+                    <Button
+                        type="primary"
+                        onClick={this.start}
+                        disabled={!hasSelected}
+                        loading={loading}
+                    >
+                        Reload
+                    </Button>
+                    <span style={{ marginLeft: 8 }}>
+                        {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+                    </span>
+                </div>
+                <Table 
+                    onChange={this.hihi} 
+                    rowSelection={rowSelection} 
+                    columns={columns} 
+                    dataSource={data}
+                    onRow={(record,index) => {
+                        return {
+                            onClick:()=>{
+                                this.onRowClick(record,index);
+                            }
+                        };
+                    }}
+                 />  
+            </div>
         )
     }
 }
-// disabled={hasErrors(getFieldsError())}
-const WrappedHorizontalLoginForm = Form.create(
-  /*{
-    onValuesChange: (props, changedValues, allValues) => {
-      console.log(allValues);
-    }
-  }*/
-)(HorizontalLoginForm);
-ReactDOM.render(<WrappedHorizontalLoginForm />, document.getElementById('root'));
+
+ReactDOM.render(<App />, document.getElementById('root'));
+

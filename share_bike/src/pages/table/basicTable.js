@@ -90,7 +90,7 @@ export default class BasicTable extends React.Component {
         })
         this.setState({
             selectedRowKeys:selectKey,
-            selectedItem: record
+            // selectedItem: record
         })
     }
 

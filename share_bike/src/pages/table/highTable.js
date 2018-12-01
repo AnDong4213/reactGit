@@ -26,11 +26,32 @@ export default class BasicTable extends React.Component {
             }
         }).then((res) => {
             if (res.code === 0) {
-                res.result.list.forEach((item, index) => {
-                    item.key = index;
+               /*  res.result.list.forEach((item) => {
+                    item.key = Math.random()*100000000000;
+                }) */
+                let dataSource = JSON.parse(JSON.stringify(res.result.list));
+                let dataSource2 = JSON.parse(JSON.stringify(res.result.list));
+                let dataSource3 = JSON.parse(JSON.stringify(res.result.list));
+                let dataSource4 = JSON.parse(JSON.stringify(res.result.list));
+                dataSource.forEach((item) => {
+                    item.key = Math.random()*100000000000;
                 })
+                dataSource2.forEach((item) => {
+                    item.key = Math.random()*100000000000;
+                })
+                dataSource3.forEach((item) => {
+                    item.key = Math.random()*100000000000;
+                })
+                dataSource4.forEach((item) => {
+                    item.key = Math.random()*100000000000;
+                })
+                console.log(dataSource)
+                console.log(dataSource2)
                 this.setState({
-                    dataSource: res.result.list
+                    dataSource: dataSource,
+                    dataSource2: dataSource2,
+                    dataSource3: dataSource3,
+                    dataSource4: dataSource4
                 })
             }
         })
@@ -449,7 +470,7 @@ export default class BasicTable extends React.Component {
                     <Table
                         bordered
                         columns={columns2}
-                        dataSource={this.state.dataSource}
+                        dataSource={this.state.dataSource2}
                         pagination={false}
                         scroll={{ x: 2650 }}
                     />
@@ -458,7 +479,7 @@ export default class BasicTable extends React.Component {
                     <Table
                         bordered
                         columns={columns3}
-                        dataSource={this.state.dataSource}
+                        dataSource={this.state.dataSource3}
                         pagination={false}
                         onChange={this.handleChange}
                     />
@@ -467,7 +488,7 @@ export default class BasicTable extends React.Component {
                     <Table
                         bordered
                         columns={columns4}
-                        dataSource={this.state.dataSource}
+                        dataSource={this.state.dataSource4}
                         pagination={false}
                     />
                 </Card>
