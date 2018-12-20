@@ -16,19 +16,27 @@ import HighTable from './pages/table/highTable';
 import City from './pages/city';
 import Order from './pages/order';
 
+import Common from './common.js';
+import OrderDetail from './pages/order/detail';
+
 import LoginForm from './pages/form/login';
 import LoginRegister from './pages/form/register';
 
 import Login from './pages/login';
 // import Home from './pages/home';
-import NoMatch from './pages/nomatch'
+import NoMatch from './pages/nomatch';
 
 export default class IRouter extends React.Component {
     render() {
         return (
             <HashRouter>
                 <App>
-                    <Route path="/login" component={Login}></Route>
+                    <Route path="/login" component={Login} />
+                    <Route path="/common" render={() => 
+                        <Common>
+                            <Route path="/common/order/detail/:orderId" component={OrderDetail} />
+                        </Common>
+                    } />
                     <Route path="/admin" render={() => 
                         <Admin>
                             <Switch>
@@ -50,7 +58,6 @@ export default class IRouter extends React.Component {
                             </Switch>
                         </Admin>
                     }></Route>
-                    <Route path="/order/detail" component={Login}></Route>
                 </App>
             </HashRouter>
         )

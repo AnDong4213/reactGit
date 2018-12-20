@@ -42,26 +42,37 @@ export default class Header extends React.Component {
         })
     }
     render() {
+        const menuType = this.props.menuType;
         return (
             <div className="header">
                 <Row className="header-top">
-                    <Col span="24">
+                    {
+                        menuType ? 
+                        <Col span="6" className="logo">
+                            <img src="/assets/logo-ant.svg" alt="" />
+                            <span>Imooc 通用管理系统</span>
+                        </Col> : null
+                    }
+                    <Col span={menuType ? 18 : 24}>
                         <span>Hello, {this.state.userName}</span>
-                        <a href="">退出</a>
+                        <a style={{color: '#ff00c2'}} href="">退出</a>
                     </Col>
                 </Row>
-                <Row className="breadcrumb">
-                    <Col className="breadcrumb-title" span="4">首页</Col>
-                    <Col className="weather" span="20">
-                        <span className="date">{this.state.sysTime}</span>
-                        <span className="weather-img">
-                            <img src="/assets/duoyun.png" alt="" />
-                        </span>
-                        <span className="weather-detail">
-                            {this.state.dayPictureUrl} / {this.state.weather}({this.state.daywind}风)
-                        </span>
-                    </Col>
-                </Row>
+                {
+                    menuType ? null :
+                    <Row className="breadcrumb">
+                        <Col className="breadcrumb-title" span="4">首页</Col>
+                        <Col className="weather" span="20">
+                            <span className="date">{this.state.sysTime}</span>
+                            <span className="weather-img">
+                                <img src="/assets/duoyun.png" alt="" />
+                            </span>
+                            <span className="weather-detail">
+                                {this.state.dayPictureUrl} / {this.state.weather}({this.state.daywind}风)
+                            </span>
+                        </Col>
+                    </Row>
+                }
             </div>
         )
     }

@@ -13,6 +13,16 @@ class FormLogin extends React.Component{
             }
         })
     }
+    handleSubmit2 = ()=>{
+        let userInfo = this.props.form.getFieldsValue();
+        console.log(userInfo);
+        /* this.props.form.validateFields((err,values)=>{
+            console.log(values);
+            if(!err){
+                message.success(`${userInfo.userName} 恭喜你，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}`)
+            }
+        }) */
+    }
 
     render(){
         const { getFieldDecorator } = this.props.form;
@@ -20,14 +30,26 @@ class FormLogin extends React.Component{
             <div>
                 <Card title="登录行内表单">
                     <Form layout="inline">
-                        <FormItem>
-                            <Input placeholder="请输入用户名"/>
+                        {/* <FormItem>
+                            {
+                                getFieldDecorator('userA', {
+                                    initialValue: 'zad'
+                                })(
+                                    <Input placeholder="请输入密码" />
+                                )
+                            }
                         </FormItem>
                         <FormItem>
-                            <Input placeholder="请输入密码" />
-                        </FormItem>
+                            {
+                                getFieldDecorator('userB', {
+                                    initialValue: 'zad'
+                                })(
+                                    <Input placeholder="请输入密码" />
+                                )
+                            }
+                        </FormItem> */}
                         <FormItem>
-                            <Button type="primary">登录</Button>
+                            <Button type="primary" onClick={this.handleSubmit2}>登录</Button>
                         </FormItem>
                     </Form>
                 </Card>
@@ -80,11 +102,15 @@ class FormLogin extends React.Component{
                         </FormItem>
                         <FormItem>
                             <Button type="primary" onClick={this.handleSubmit}>登录</Button>
+                            <Button type="primary" onClick={this.handleReset}>清空</Button>
                         </FormItem>
                     </Form>
                 </Card>
             </div>
         );
+    }
+    handleReset = () => {
+        this.props.form.resetFields()
     }
 }
 export default Form.create()(FormLogin);

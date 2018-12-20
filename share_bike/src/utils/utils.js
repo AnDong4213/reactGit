@@ -12,7 +12,7 @@ export default {
         let h = time.getHours(), mm = time.getMinutes(), s = time.getSeconds();
         return y+'-'+addZero(m)+'-'+addZero(d)+' '+addZero(h)+' : '+addZero(mm)+' : '+addZero(s);
     },
-    pagination(data,callback){
+    pagination(data,callback) {
         return {
             onChange:(current)=>{
                 callback(current)

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Button, Table, Form, Select, Modal, DatePicker, message} from 'antd';
 import axios from '../../axios';
 import Utils from '../../utils/utils';
@@ -8,11 +9,15 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 export default class Order extends React.Component {
+    static contextTypes = {
+        router: PropTypes.any
+    }
     state = {
         pagination: {},
         list: [],
         orderInfo: {},
-        orderConfirmVisble: false
+        orderConfirmVisble: false,
+        selectedRowKeys: []
     }
     params = {
         page: 1
@@ -20,6 +25,9 @@ export default class Order extends React.Component {
 
     componentDidMount() {
         this.requestList();
+    }
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
     }
     requestList = () => {
         let _this = this;
@@ -44,14 +52,14 @@ export default class Order extends React.Component {
         })
     }
     handleConfirm = () => {
-        /* let item = this.state.selectedItem;
+        let item = this.state.selectedItem;
         if (!item) {
             Modal.info({
                 title: '信息',
                 content: '请选择一条订单进行结束'
             })
             return;
-        } */
+        }
         axios.ajax({
             url:'/order/ebike_info',
             data:{
@@ -63,10 +71,24 @@ export default class Order extends React.Component {
             if(res.code === '0'){
                 this.setState({
                     orderInfo: res.result,
-                    orderConfirmVisble: true
+                    orderConfirmVisble: true,
+                    selectedItem: undefined
                 })
             }
         })
+    }
+    openOrderDetail = () => {
+        let item = this.state.selectedItem;
+        if (!item) {
+            Modal.info({
+                title: '信息',
+                content: '请选择一条订单'
+            })
+            return;
+        }
+        // console.log(this.context);
+        // this.context.router.history.push(`/common/order/detail/${item.id}`)
+        window.open(`/#/common/order/detail/${item.id}`);
     }
     handleFinishOrder = () => {
         axios.ajax({
@@ -77,7 +99,6 @@ export default class Order extends React.Component {
                 }
             }
         }).then((res) => {
-            console.log(res.code)
             message.success('订单结束成功')
             this.setState({
                 orderConfirmVisble: false
@@ -85,8 +106,16 @@ export default class Order extends React.Component {
             this.requestList();
         })
     }
+    onRowClick = (record, index) => {
+        // console.log(record);
+        this.setState({
+            selectedRowKeys: [index],
+            selectedItem: record
+        });
+    }
 
     render() {
+        const { selectedRowKeys } = this.state;
         const columns = [
             {
                 title:'订单编号',
@@ -143,7 +172,8 @@ export default class Order extends React.Component {
             wrapperCol:{span:19}
         }
         const rowSelection = {
-            type: 'radio'
+            type: 'radio',
+            selectedRowKeys
         }
         return (
             <div>
@@ -151,7 +181,7 @@ export default class Order extends React.Component {
                     <FilterFormHaha />
                 </Card>
                 <Card style={{marginTop:10}}>
-                    <Button type="primary">订单详情</Button>
+                    <Button type="primary" onClick={this.openOrderDetail}>订单详情</Button>
                     <Button type="primary" style={{marginLeft: 10}} onClick={this.handleConfirm}>结束订单</Button>
                 </Card>
                 <div className="content-wrap">
@@ -161,6 +191,15 @@ export default class Order extends React.Component {
                         dataSource={this.state.list}
                         pagination={this.state.pagination}
                         rowSelection={rowSelection}
+                        onRow={
+                            (record, index) => {
+                                return {
+                                    onClick:()=>{
+                                        this.onRowClick(record,index);
+                                    }
+                                };
+                            }
+                        }
                     />
                 </div>
                 <Modal
