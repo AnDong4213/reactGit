@@ -7,9 +7,9 @@ import { Table } from 'antd';
 class App extends React.Component {
 
     onChange = (pagination, filters, sorter) => {
-        console.log(pagination);
+       /*  console.log(pagination);
         console.log(filters);
-        console.log(sorter);
+        console.log(sorter); */
     }
     
     render() {
@@ -18,25 +18,42 @@ class App extends React.Component {
                 title: 'Name',
                 dataIndex: 'name',
                 filters: [{
-                    text: 'Joe1',
+                    text: 'Joe',
                     value: 'Joe',
                 },{
-                    text: 'Jim1',
+                    text: 'Jim',
                     value: 'Jim',
                 },{
-                    text: 'zhao1',
+                    text: 'zhao',
                     value: 'zhao',
                 }],
-                onFilter: (value, record) => record.name.indexOf(value) === 0,
-                filterMultiple: true
+                // onFilter: (value, record) => record.name.indexOf(value) === 0,
+                onFilter: (value, record) => {
+                    // console.log(value);
+                    // console.log(record);
+                    return record.name.indexOf(value) === 0
+                },
+                sorter: (a, b) => a.name.length - b.name.length,
             },
             {
                 title: 'Age',
-                dataIndex: 'age'
+                dataIndex: 'age',
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => a.age - b.age
             },
             {
                 title: 'Address',
-                dataIndex: 'address'
+                dataIndex: 'address',
+                filters: [{
+                    text: 'London',
+                    value: 'London',
+                }, {
+                    text: 'New York',
+                    value: 'New York',
+                }],
+                filterMultiple: false,
+                onFilter: (value, record) => record.address.indexOf(value) === 0,
+                sorter: (a, b) => a.address.length - b.address.length
             }
         ]
         const data = [{
