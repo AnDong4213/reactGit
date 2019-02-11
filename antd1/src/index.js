@@ -1,82 +1,154 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
+import './index.css';
 
-import { Table } from 'antd';
+import { Form, Input, Icon, Button, Col } from 'antd';
+const { TextArea } = Input;
+let id = 0;
 
-class App extends React.Component {
-
-    onChange = (pagination, filters, sorter) => {
-        console.log(pagination);
-        console.log(filters);
-        console.log(sorter);
+class Haha extends React.Component {
+  remove = (k) => {
+    const { form } = this.props;
+    const keys = form.getFieldValue('keys');
+    if (keys.length === 1) {
+      return;
     }
-    
-    render() {
-        const columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                filters: [{
-                    text: 'Joe1',
-                    value: 'Joe',
-                },{
-                    text: 'Jim1',
-                    value: 'Jim',
-                },{
-                    text: 'zhao1',
-                    value: 'zhao',
-                }],
-                onFilter: (value, record) => record.name.indexOf(value) === 0,
-                filterMultiple: true
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age'
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address'
-            }
-        ]
-        const data = [{
-            key: '1',
-            name: 'John B',
-            age: 12,
-            address: 'New York No. 1 Lake Park'
-          }, {
-            key: '2',
-            name: 'Jim Gr',
-            age: 42,
-            address: 'London No. 1 Lake Park'
-          }, {
-            key: '3',
-            name: 'Joe Bla',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park'
-          }, {
-            key: '4',
-            name: 'Jim Red',
-            age: 22,
-            address: 'London No. 2 Lake Park'
-        },{
-            key: '5',
-            name: 'Jim Pink',
-            age: 25,
-            address: 'London No. 3 Lake Park'
-        },{
-            key: '6',
-            name: 'zhao Blackll',
-            age: 23,
-            address: 'London No. 3 Lake Park'
-        }];
-        return (
-            <div style={{margin: 50}}>
-                <Table columns={columns} dataSource={data} onChange={this.onChange} />
-            </div>
-        )
-    }
+    form.setFieldsValue({
+      keys: keys.filter(key => key !== k),
+    });
+  }
+
+  add = () => {
+    const { form } = this.props;
+    const keys = form.getFieldValue('keys');
+    const nextKeys = keys.concat(++id);
+    form.setFieldsValue({
+      keys: nextKeys,
+    });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      // console.log(this.refs.getButton);
+      this.refs.getButton.haha();
+	  this.child.hehe();  // 子组件...
+	  
+      if (!err) {
+        let { dictKey, dictValue, dictDesc} = values;
+        let data = [];
+        dictKey.forEach((item, index) => {
+          let o = {};
+          o.dictKey = item;
+          o.dictValue = dictValue[index];
+          o.dictDesc = dictDesc[index];
+          data.push(o)
+        })
+        // console.log(data);
+      }
+	  
+    });
+  }
+  
+  onRef = (ref) => {
+	this.child = ref;
+  }
+
+  render() {
+    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const formItemLayout = {
+      labelCol: {
+        span: 7
+      },
+      wrapperCol: {
+        span: 17
+      },
+    };
+
+    getFieldDecorator('keys', { initialValue: [0] });
+    const keys = getFieldValue('keys');
+    const formItems = keys.map((k, index) => (
+      <div key={k}>
+        <Col>
+          <Form.Item label="字典key" {...formItemLayout}>
+            {getFieldDecorator(`dictKey[${k}]`)(
+                <Input />
+            )}
+          </Form.Item>
+        </Col>
+        <Col>
+          <Form.Item label="字典value" {...formItemLayout}>
+            {getFieldDecorator(`dictValue[${k}]`)(
+              <Input />
+            )}
+          </Form.Item>
+        </Col>
+        <Col>
+          <Form.Item label="字典描述口径" {...formItemLayout}>
+            {getFieldDecorator(`dictDesc[${k}]`)(
+              <TextArea rows={3} style={{resize: 'none'}} />
+            )}
+          </Form.Item>
+        </Col>
+        {keys.length > 1 ? (
+          <Icon
+            className="dynamic-delete-button"
+            type="minus-circle-o"
+            disabled={keys.length === 1}
+            onClick={() => this.remove(k)}
+          />
+        ) : null}
+      </div>
+    ));
+    return (
+      <div>
+        <Form onSubmit={this.handleSubmit}>
+          {formItems}
+          <Form.Item>
+            <Button type="dashed" onClick={this.add}><Icon type="plus" /> Add field</Button>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">Submit</Button>
+          </Form.Item>
+        </Form>
+        <He ref="getButton" />
+		<Hello onRef={this.onRef} />
+      </div>
+    );
+  }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class He extends React.Component {
+  haha = () => {
+    console.log('哈哈...');
+  }
+  render() {
+    return (
+      <div>
+        我是子组件11...
+        <Button onClick={this.haha}>点击11</Button>
+      </div>
+    )
+  }
+}
 
+class Hello extends React.Component {
+  componentDidMount() {
+	this.props.onRef(this)
+  }
+  hehe = () => {
+    console.log('呵呵...');
+  }
+  render() {
+    return (
+      <div>
+        我是子组件22...
+        <Button onClick={this.hehe}>点击22</Button>
+      </div>
+    )
+  }
+}
+
+Haha = Form.create({ name: 'dynamic_form_item' })(Haha);
+ReactDOM.render(<Haha />,  document.getElementById('root'));

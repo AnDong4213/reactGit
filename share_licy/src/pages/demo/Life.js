@@ -7,18 +7,28 @@ export default class Life extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 0
-        }
+            count: 10,
+            haha: '',
+            hehe: ''
+        };
+        console.log('constructor父');
     }
     /* state = {
         count: 0
     } */
 
     componentWillMount() {
-        console.log('Will--Mount父')
+        console.log('Will--Mount父');
+        /*this.setState({
+          hehe: '呵呵...'
+        })*/
     }
     componentDidMount() {
-        console.log('Did--Mount父')
+        console.log('Did--Mount父');
+        this.setState({
+          haha: '哈哈..'
+        })
+        // console.log(this.state.hehe);
     }
 
     componentWillReceiveProps(newProps) {
