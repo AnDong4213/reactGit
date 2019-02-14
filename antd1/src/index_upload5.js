@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 
-import {Form, Upload, Icon, Spin, Row, Col, Input, Button, Modal} from 'antd';
+import {Form, Upload, Icon, Spin, Row, Col, Input, Button} from 'antd';
 
 const FormItem = Form.Item;
 
 class App extends React.Component {
 
   state = {
+    loading: false,
     uploading: false,
-    previewVisible: false,
-    previewImage: '',
     fileList: []
   };
 
@@ -31,8 +30,11 @@ class App extends React.Component {
           formData.append(key, param[key])
         }
         fileList.forEach((item, index) => {
-          // console.log(item)
-          formData.append('logo'+index, item)
+          if (item.size/1024 > 70) {
+            console.log(index);
+          } else {
+            formData.append('logo'+index, item)
+          }
         });
         axios.post('http://127.0.0.1:3000/other/form', formData, {
           'Content-Type': 'multiple/form-data'
@@ -47,11 +49,9 @@ class App extends React.Component {
       }
     })
   }
-  handleCancel2 = () => {
+  handleCancel = () => {
     this.props.form.resetFields();
   }
-
-  handleCancel = () => this.setState({ previewVisible: false })
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -59,9 +59,10 @@ class App extends React.Component {
     const props = {
       // action: 'http://127.0.0.1:3000/other/form',
       multiple: true,
-      onRemove: (file) => {
+      onRemove:(file) => {
         this.setState(({fileList}) => {
           let index = fileList.indexOf(file);
+          // let newFileList = JSON.parse(JSON.stringify(fileList));  // 这样写不行的...
           let newFileList = fileList.slice();
           newFileList.splice(index, 1);
           return {
@@ -75,35 +76,11 @@ class App extends React.Component {
         }))
         return false
       },
-      fileList: this.state.fileList,
-      onChange: (file) => {
-        if (file.status !== 'uploading') {
-          this.setState({ 
-            fileList: file.fileList
-          })
-        }
-      },
-      onPreview: (file) => {
-        this.setState({
-          previewImage: file.url || file.thumbUrl,
-          previewVisible: true,
-        });
-      }
+      fileList: this.state.fileList
     }
-
-    const { previewVisible, previewImage, fileList } = this.state;
-    const uploadButton = (
-      <div>
-        <Icon type="plus" />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
 
     return (
       <div style={{margin: 40}}>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
         <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
           <Spin spinning={this.state.uploading}>
             <Row>
@@ -127,8 +104,10 @@ class App extends React.Component {
               </Col>
               <Col>
                 <FormItem label="文件上传">
-                  <Upload {...props} name="logo" listType="picture-card">
-                    {fileList.length >= 3 ? null : uploadButton}
+                  <Upload {...props} name="logo" listType="text">
+                    <Button>
+                      <Icon type="upload" /> Click to Upload
+                    </Button>
                   </Upload>
                 </FormItem>
               </Col>
@@ -137,7 +116,7 @@ class App extends React.Component {
           <Row type="flex">
             <FormItem>
               <Button type="primary" htmlType="submit">提交</Button>
-              <Button style={{marginLeft: 20}} onClick={this.handleCancel2}>取消</Button>
+              <Button style={{marginLeft: 20}} onClick={this.handleCancel}>取消</Button>
             </FormItem>
           </Row>
         </Form>
