@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 
-import {Form, Upload, Icon, Spin, Row, Col, Input, Button, Modal} from 'antd';
+import {Form, Upload, Icon, Spin, Row, Col, Input, Button, Modal, Message} from 'antd';
 
 const FormItem = Form.Item;
 
@@ -13,7 +13,8 @@ class App extends React.Component {
     uploading: false,
     previewVisible: false,
     previewImage: '',
-    fileList: []
+    fileList: [],
+    fileListReplace: []
   };
 
   handleSubmit = (e) => {
@@ -21,27 +22,38 @@ class App extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       let that = this;
       if (!err) {
+        this.setState({
+          uploading: true
+        })
         let param = {
           ...values
         };
         let formData = new FormData();
-        let { fileList } = this.state;
+        let { fileListReplace } = this.state;
 
         for (let key in param) {
           formData.append(key, param[key])
         }
-        fileList.forEach((item, index) => {
-          // console.log(item)
+        fileListReplace.forEach((item, index) => {
           formData.append('logo'+index, item)
         });
         axios.post('http://127.0.0.1:3000/other/form', formData, {
           'Content-Type': 'multiple/form-data'
         }).then(res => {
-          that.setState({
-            fileList: []
-          });
-          that.props.form.resetFields();
-          console.log(res.data)
+          if (res.data.desc !== '') {
+            console.log(res.data);
+            this.setState({
+              uploading: false
+            });
+            that.setState({
+              fileList: [],
+              fileListReplace: []
+            });
+            that.props.form.resetFields();
+            Message.info('上传成功')
+          } else {
+            Message.info('上传失败')
+          }
         })
 
       }
@@ -55,6 +67,7 @@ class App extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { previewVisible, previewImage, fileList, fileListReplace } = this.state;
 
     const props = {
       // action: 'http://127.0.0.1:3000/other/form',
@@ -64,24 +77,22 @@ class App extends React.Component {
           let index = fileList.indexOf(file);
           let newFileList = fileList.slice();
           newFileList.splice(index, 1);
+          let fileListFilter = fileListReplace.filter(item => item.name !== file.name);
           return {
-            fileList: newFileList
+            fileList: newFileList,
+            fileListReplace: fileListFilter
           }
         })
       },
-      beforeUpload: (file) => {
-        this.setState(({fileList}) => ({
-          fileList: [...fileList, file]
-        }))
+      beforeUpload: () => {
         return false
       },
       fileList: this.state.fileList,
       onChange: (file) => {
-        if (file.status !== 'uploading') {
-          this.setState({ 
-            fileList: file.fileList
-          })
-        }
+        fileListReplace.push(file.file);
+        this.setState({ 
+          fileList: file.fileList
+        })
       },
       onPreview: (file) => {
         this.setState({
@@ -91,7 +102,6 @@ class App extends React.Component {
       }
     }
 
-    const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (
       <div>
         <Icon type="plus" />
@@ -110,7 +120,14 @@ class App extends React.Component {
               <Col>
                 <FormItem label="基本信息">
                   {
-                    getFieldDecorator('desc', {})(
+                    getFieldDecorator('desc', {
+                      rules: [
+                        {
+                          required: true,
+                          message: '必输'
+                        }
+                      ]
+                    })(
                       <Input />
                     )
                   }
@@ -119,7 +136,14 @@ class App extends React.Component {
               <Col>
                 <FormItem>
                   {
-                    getFieldDecorator('age', {})(
+                    getFieldDecorator('age', {
+                      rules: [
+                        {
+                          required: true,
+                          message: '必输'
+                        }
+                      ]
+                    })(
                       <Input />
                     )
                   }
@@ -128,7 +152,7 @@ class App extends React.Component {
               <Col>
                 <FormItem label="文件上传">
                   <Upload {...props} name="logo" listType="picture-card">
-                    {fileList.length >= 3 ? null : uploadButton}
+                    {fileList.length >= 10 ? null : uploadButton}
                   </Upload>
                 </FormItem>
               </Col>
