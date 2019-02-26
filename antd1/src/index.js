@@ -39,9 +39,12 @@ class App extends React.Component {
         });
         axios.post('http://127.0.0.1:3000/other/form', formData, {
           'Content-Type': 'multiple/form-data'
-        }).then(res => {
-          if (res.data.desc !== '') {
-            console.log(res.data);
+        }).then(({
+					status,
+          data
+				}) => {
+          if (status === 200 && data.desc !== '') {
+            console.log(data);
             this.setState({
               uploading: false
             });
