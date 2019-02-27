@@ -25,13 +25,13 @@ export default class Order extends React.Component {
         }).then((res)=>{
             if(res.code === '0'){
                 this.setState({
-                    orderInfo:res.result
+                    orderInfo: res.result
                 })
-                this.renderMap(res.result);
+                // this.renderMap(res.result);
             }
         })
     }
-    
+
     renderMap = (result)=>{
         this.map = new window.BMap.Map('orderDetailMap');
         // this.map.centerAndZoom('北京',11);
@@ -90,7 +90,7 @@ export default class Order extends React.Component {
             this.map.addOverlay(polyline);
             this.map.centerAndZoom(endPoint, 11);
         }
-        
+
     }
 
     // 绘制服务区
@@ -165,21 +165,3 @@ export default class Order extends React.Component {
         )
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

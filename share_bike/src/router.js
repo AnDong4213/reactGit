@@ -22,6 +22,9 @@ import OrderDetail from './pages/order/detail';
 import LoginForm from './pages/form/login';
 import LoginRegister from './pages/form/register';
 
+import Bar from './pages/echarts/bar'
+import Pie from './pages/echarts/pie'
+
 import Login from './pages/login';
 // import Home from './pages/home';
 import NoMatch from './pages/nomatch';
@@ -32,12 +35,12 @@ export default class IRouter extends React.Component {
             <HashRouter>
                 <App>
                     <Route path="/login" component={Login} />
-                    <Route path="/common" render={() => 
+                    <Route path="/common" render={() =>
                         <Common>
                             <Route path="/common/order/detail/:orderId" component={OrderDetail} />
                         </Common>
                     } />
-                    <Route path="/admin" render={() => 
+                    <Route path="/admin" render={() =>
                         <Admin>
                             <Switch>
                                 <Route path="/admin/ui/buttons" component={Buttons}></Route>
@@ -54,6 +57,8 @@ export default class IRouter extends React.Component {
                                 <Route path="/admin//table/high" component={HighTable}></Route>
                                 <Route path="/admin/city" component={City}></Route>
                                 <Route path="/admin/order" component={Order}></Route>
+                                <Route path="/admin/charts/bar" component={Bar}></Route>
+                                <Route path="/admin/charts/pie" component={Pie}></Route>
                                 <Route component={NoMatch}></Route>
                             </Switch>
                         </Admin>
