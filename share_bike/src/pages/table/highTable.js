@@ -45,8 +45,6 @@ export default class BasicTable extends React.Component {
                 dataSource4.forEach((item) => {
                     item.key = Math.random()*100000000000;
                 })
-                console.log(dataSource)
-                console.log(dataSource2)
                 this.setState({
                     dataSource: dataSource,
                     dataSource2: dataSource2,
@@ -214,87 +212,6 @@ export default class BasicTable extends React.Component {
                 }
             },
             {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            },
-            {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
-                title: '生日',
-                key: 'birthday',
-                width: 120,
-                dataIndex: 'birthday'
-            }, {
                 title: '生日',
                 key: 'birthday',
                 width: 120,

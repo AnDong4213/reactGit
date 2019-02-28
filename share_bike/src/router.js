@@ -24,6 +24,10 @@ import LoginRegister from './pages/form/register';
 
 import Bar from './pages/echarts/bar'
 import Pie from './pages/echarts/pie'
+import Line from './pages/echarts/line'
+
+import RichText from './pages/rich'
+import Permission from './pages/permission'
 
 import Login from './pages/login';
 // import Home from './pages/home';
@@ -34,6 +38,7 @@ export default class IRouter extends React.Component {
         return (
             <HashRouter>
                 <App>
+                    <Route path="/home" component={Admin} />
                     <Route path="/login" component={Login} />
                     <Route path="/common" render={() =>
                         <Common>
@@ -54,11 +59,16 @@ export default class IRouter extends React.Component {
                                 <Route path="/admin/form/login" component={LoginForm}></Route>
                                 <Route path="/admin/form/reg" component={LoginRegister}></Route>
                                 <Route path="/admin/table/basic" component={BasicTable}></Route>
-                                <Route path="/admin//table/high" component={HighTable}></Route>
+                                <Route path="/admin/table/high" component={HighTable}></Route>
                                 <Route path="/admin/city" component={City}></Route>
                                 <Route path="/admin/order" component={Order}></Route>
                                 <Route path="/admin/charts/bar" component={Bar}></Route>
                                 <Route path="/admin/charts/pie" component={Pie}></Route>
+                                <Route path="/admin/charts/line" component={Line}></Route>
+                                <Route path="/admin/rich" component={RichText}></Route>
+                                <Route path="/admin/user" component={RichText}></Route>
+                                <Route path="/admin/bikeMap" component={Line}></Route>
+                                <Route path="/admin/permission" component={Permission}></Route>
                                 <Route component={NoMatch}></Route>
                             </Switch>
                         </Admin>
