@@ -6,8 +6,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import NavLeft from './components/NavLeft';
 
-// import Home from './pages/home';
-
 export default class Admin extends React.Component {
     render() {
         return (
@@ -18,8 +16,9 @@ export default class Admin extends React.Component {
                 <Col span="20" className="main">
                     <Header />
                     <Row className="content">
-                        {/* <Home/> */}
-                        {this.props.children}
+                      <div className="home-wrap" style={{background: '#fff',height: 400,textAlign: 'center',fontSize: 20,lineHeight: '400px'}}>
+                          后台管理系统
+                      </div>
                     </Row>
                     <Footer />
                 </Col>

@@ -1,12 +1,30 @@
 import React from 'react';
-import './index.less';
-export default class Home extends React.Component {
+import { Row, Col } from 'antd';
+import './style/common.less';
 
-    render(){
+import Header from './components/Header';
+import Footer from './components/Footer';
+import NavLeft from './components/NavLeft';
+
+// import Home from './pages/home';
+
+export default class Admin extends React.Component {
+    render() {
         return (
-            <div className="home-wrap">
-                后台管理系统
-            </div>
-        );
+            <Row className="container">
+                <Col span="4" className="nav-left">
+                    <NavLeft />
+                </Col>
+                <Col span="20" className="main">
+                    <Header />
+                    <Row className="content">
+                      <div className="home-wrap">
+                          后台管理系统
+                      </div>
+                    </Row>
+                    <Footer />
+                </Col>
+            </Row>
+        )
     }
 }

@@ -30,7 +30,7 @@ import RichText from './pages/rich'
 import Permission from './pages/permission'
 
 import Login from './pages/login';
-// import Home from './pages/home';
+import Home from './home.js';
 import NoMatch from './pages/nomatch';
 
 export default class IRouter extends React.Component {
@@ -38,7 +38,7 @@ export default class IRouter extends React.Component {
         return (
             <HashRouter>
                 <App>
-                    <Route path="/home" component={Admin} />
+                    <Route path="/home" component={Home} />
                     <Route path="/login" component={Login} />
                     <Route path="/common" render={() =>
                         <Common>

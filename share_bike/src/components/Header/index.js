@@ -3,10 +3,11 @@ import { Row, Col } from 'antd';
 import Util from './../../utils/utils';
 // import axios from './../../axios';
 import axios2 from 'axios';
+import { connect } from 'react-redux'
 
 import './index.less';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     componentWillMount() {
         this.setState({
             userName: '赵安东'
@@ -18,6 +19,9 @@ export default class Header extends React.Component {
             })
         }, 1000)
         this.getWeatherAPIData();
+    }
+    componentDidMount() {
+      // console.log(this.props);
     }
     getWeatherAPIData() {
         let city = '110101';
@@ -47,7 +51,7 @@ export default class Header extends React.Component {
             <div className="header">
                 <Row className="header-top">
                     {
-                        menuType ? 
+                        menuType ?
                         <Col span="6" className="logo">
                             <img src="/assets/logo-ant.svg" alt="" />
                             <span>Imooc 通用管理系统</span>
@@ -77,3 +81,12 @@ export default class Header extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+  console.log(state);
+    return {
+        // menuName:state.menuName
+    }
+}
+
+export default connect(mapStateToProps, null)(Header);
