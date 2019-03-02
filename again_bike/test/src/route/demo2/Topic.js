@@ -4,7 +4,7 @@ export default class Topic extends React.Component {
     render() {
         return (
             <div>
-                Topic ddAxx存储
+                Topic
             </div>
         )
     }

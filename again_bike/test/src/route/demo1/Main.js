@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default class Topic extends React.Component {
+export default class Main extends React.Component {
     render() {
         return (
             <div>
-                Topic ddAxx存储
+                Main
             </div>
         )
     }

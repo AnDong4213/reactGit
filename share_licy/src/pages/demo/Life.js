@@ -66,7 +66,8 @@ export default class Life extends Component {
                 <button onClick={this.handleAdd.bind(this)}>点击</button>
                 <button onClick={this.handleClick}>点击</button>
                 <p>{this.state.count}</p>
-                <Child name="看看"></Child>
+                <Child name="看看">
+                </Child>
                 <Child2 name={this.state.count}></Child2>
             </div>
         )
