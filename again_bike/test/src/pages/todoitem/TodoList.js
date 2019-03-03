@@ -9,9 +9,6 @@ class TodoList extends Component {
 			inputValue: '',
 			list: []
 		}
-		// this.handleInputChange = this.handleInputChange.bind(this);
-		// this.handleBtnClick = this.handleBtnClick.bind(this);
-		// this.handleItemDelete = this.handleItemDelete.bind(this);
 	}
 
 	render() {
@@ -23,11 +20,12 @@ class TodoList extends Component {
 						id="insertArea"
 						className='input'
 						value={this.state.inputValue}
+						ref={(input) => {this.haha = input}}
 						onChange={this.handleInputChange}
 					/>
 					<button onClick={this.handleBtnClick}>提交</button>
 				</div>
-				<ul>
+				<ul ref = {(ul) => {this.ul = ul}}>
 					{this.getTodoItem()}
 				</ul>
 			</Fragment>
@@ -46,20 +44,34 @@ class TodoList extends Component {
 			)
 		})
 	}
-
-	// handleInputChange(e) {
+	// 第二种形式的 setState() 来接受一个函数而不是一个对象。 该函数将接收先前的状态作为第一个参数，将此次更新被应用时的props做为第二个参数：
 	handleInputChange = (e) => {
+		// console.log(this.haha)
 		const value = e.target.value;
-		this.setState(() => ({
+		/* this.setState(() => ({
 			inputValue: value
-		}));
+		})); */
+		this.setState({
+			inputValue: value
+		}, () => {
+			// console.log('ii')
+		})
 	}
 
 	handleBtnClick = () => {
-		this.setState((prevState) => ({
+		/* this.setState((prevState) => ({
 			list: [...prevState.list, prevState.inputValue],
 			inputValue: ''
-		}));
+		})); */
+		this.setState((prevState) => {
+			// console.log(prevState)  // handleInputChange里改变的，给inputValue赋值的
+			return {
+				list: [...prevState.list, prevState.inputValue],
+				inputValue: ''
+			}
+		}, () => {
+			console.log(this.ul.querySelectorAll('div').length)
+		});
 	}
 
 	handleItemDelete = (index) => {

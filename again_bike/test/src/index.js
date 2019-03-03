@@ -4,15 +4,15 @@ import './index.css';
 // import App from './App';
 // import App from './route/demo1';
 // import App from './route/demo2';
-import App from './TodoList';
-import * as serviceWorker from './serviceWorker';
+import App from './redux01/TodoList';
+// import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();
 
 
 // react-router  是个基础包
