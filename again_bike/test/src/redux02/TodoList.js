@@ -1,22 +1,26 @@
 import React from 'react'
 import 'antd/dist/antd.css'
+import axios from 'axios'
 
 import store from './store'
-import { getInputChangeAction, getAddItemAction, getDeleteItemAction, getTodoList } from './store/actionCreators'
+import { getInputChangeAction, getAddItemAction, getDeleteItemAction, initListAction } from './store/actionCreators'
 import TodoListUI from './TodoListUi'
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
+
     // 订阅了store, store里的数据只要发生改变，subscribe里的函数就会被自动执行
     store.subscribe(this.handleStoreChange)
   }
   componentDidMount() {
-    const action = getTodoList();
-    // console.log(action())  // 把action放在dispatch里面，action会自动执行
-    // dispatch发现里面是个函数怎么办，本应该是个对象，所以就运行一下喽...
-    store.dispatch(action);
+    axios.get('/list.json').then(({status, data: {data}}) => {
+      if (status === 200) {
+        const action = initListAction(data)
+        store.dispatch(action)
+      }
+    })
   }
   render() {
     return (
