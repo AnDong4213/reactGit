@@ -1,18 +1,27 @@
 import { type } from './../action'
 
-const initialState = {
-  menuName: '首页'
+const defaultState = {
+  menuName: ''
 }
 
-export default (state = initialState, action) => {
-  switch (action) {
+/*export default (state = defaultState, action) => {
+  switch (action.type) {
     case type.SWITCH_MENU:
-      return {
-        ...state,
-        menuName: action.menuName
-      }
+      let newState = JSON.parse(JSON.stringify(state))
+      newState.menuName = action.menuName
+      return newState
       break;
     default:
+      return state
       break;
   }
+}*/
+
+export default (state = defaultState, action) => {
+  if (action.type === type.SWITCH_MENU) {
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.menuName = action.menuName
+    return newState;
+  }
+  return state;
 }

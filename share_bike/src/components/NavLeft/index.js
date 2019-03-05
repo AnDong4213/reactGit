@@ -66,4 +66,10 @@ class NavLeft extends React.Component {
     }
 }
 
+/*const mapDispatchToProps = (dispatch) => {
+  return {
+    
+  }
+}*/
+
 export default connect()(NavLeft)

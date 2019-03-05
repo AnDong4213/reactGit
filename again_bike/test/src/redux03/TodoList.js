@@ -1,6 +1,5 @@
 import React from 'react'
 import 'antd/dist/antd.css'
-import axios from 'axios'
 
 import store from './store'
 import { getInputChangeAction, getAddItemAction, getDeleteItemAction, getInitList } from './store/actionCreators'
@@ -14,13 +13,8 @@ class TodoList extends React.Component {
     store.subscribe(this.handleStoreChange)
   }
   componentDidMount() {
-
-    /* axios.get('/list.json').then(({status, data: {data}}) => {
-      if (status === 200) {
-        const action = initListAction(data)
-        store.dispatch(action)
-      }
-    }) */
+    const action = getInitList();
+    store.dispatch(action)
   }
   render() {
     return (

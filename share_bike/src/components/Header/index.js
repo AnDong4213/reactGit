@@ -65,7 +65,7 @@ class Header extends React.Component {
                 {
                     menuType ? null :
                     <Row className="breadcrumb">
-                        <Col className="breadcrumb-title" span="4">首页</Col>
+                        <Col className="breadcrumb-title" span="4">{this.props.menuName}</Col>
                         <Col className="weather" span="20">
                             <span className="date">{this.state.sysTime}</span>
                             <span className="weather-img">
@@ -83,10 +83,9 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
     return {
-        // menuName:state.menuName
+        menuName: state.menuName
     }
 }
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);
