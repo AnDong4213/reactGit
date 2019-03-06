@@ -26,7 +26,7 @@ export default {
             showQuickJumper:true
         }
     },
-	
+
     getOptionList(data){
         if(!data){
             return [];
@@ -37,7 +37,7 @@ export default {
         })
         // return options;
     },
-	
+
     updateSelectedItem(selectedRowKeys, selectedItem, selectedIds){
         if (selectedIds){
             this.setState({
