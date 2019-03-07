@@ -20,8 +20,10 @@ function onOk(value) {
 
 class App extends React.Component {
 
-  state = {
-    mode: 'month'
+  state =  {
+    isopen: false,
+    time: null,
+    mode: 'year'
   }
 
   render() {
@@ -42,14 +44,24 @@ class App extends React.Component {
           onOk={onOk}
         />
         <br />
-        <MonthPicker 
+        <MonthPicker
           onChange={onChange}
         />
         <br />
-        <DatePicker 
+        <DatePicker
           format="YYYY"
           mode={this.state.mode}
-          onChange={onChange}
+          value={this.state.time}
+          open={this.state.isopen}
+          onFocus={() => {this.setState({isopen: true})}}
+          onBlur={() => {this.setState({isopen: false})}}
+          onPanelChange={(v) => {
+              console.log(v)
+              this.setState({
+                time: v,
+                isopen: false
+              })
+          }}
         />
       </div>
     )
@@ -57,4 +69,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />,  document.getElementById('root'));
-// defaultValue={[moment('2015/01/01', DATE_FORMAT_WITH_TIME), moment('2015/01/01', DATE_FORMAT_WITH_TIME)]}  
+// defaultValue={[moment('2015/01/01', DATE_FORMAT_WITH_TIME), moment('2015/01/01', DATE_FORMAT_WITH_TIME)]}
