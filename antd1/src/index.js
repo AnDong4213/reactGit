@@ -1,72 +1,104 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from 'moment'
-import { DatePicker } from 'antd';
-// import 'antd/dist/antd.css';
-import './index.css';
 
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
-const DATE_FORMAT_WITH_TIME = 'YYYY-MM-DD HH:mm:ss';
-const DATE_FORMAT_WITH_TIME2 = ['YYYY-MM-DD 00:00:00', 'YYYY-MM-DD 59:59:59'];
+import { Select } from 'antd';
+import jsonp from 'fetch-jsonp';
+import querystring from 'querystring';
 
-function onChange(value, dateString) {
-  console.log('Selected Time: ', value.format(DATE_FORMAT_WITH_TIME2[0]));
-  console.log('Formatted Selected Time: ', dateString);
-}
+const Option = Select.Option;
 
-function onOk(value) {
-  console.log('onOk: ', value);
+let timeout, currentValue;
+
+function fetch(value, callback) {
+  if (timeout) {
+    clearTimeout(timeout);
+    timeout = null;
+  }
+  currentValue = value;
+  function fake() {
+    const str = querystring.encode({
+      code: 'utf-8',
+      q: value,
+    });
+    jsonp(`https://suggest.taobao.com/sug?${str}`)
+      .then(response => response.json())
+      .then(d => {
+        if (currentValue === value) {
+          const result = d.result, data = [];
+          result.forEach(r => {
+            data.push({
+              value: r[1],
+              text: r[0],
+            })
+          })
+          callback(data);
+        }
+      })
+  }
+  timeout = setTimeout(fake, 300);
 }
 
 class App extends React.Component {
+  state = {
+    data: [],
+    value: '你看',
+  }
 
-  state =  {
-    isopen: false,
-    time: null,
-    mode: 'year'
+  handleSearch = value => {
+    console.log(value)
+    fetch(value, data => this.setState({data}))
+  }
+  handleChange = value => {
+    console.log(value)
+    this.setState({ value });
   }
 
   render() {
+    const options = this.state.data.map(d => <Option key={d.value}>{d.text}</Option>);
     return (
-      <div style={{margin: 40}}>
-        <DatePicker
-          showTime
-          placeholder="Select Time"
-          onChange={onChange}
-          onOk={onOk}
-        />
-        <br />
-        <RangePicker
-          showTime={{ format: 'HH:mm' }}
-          format="YYYY-MM-DD HH:mm"
-          placeholder={['Start Time', 'End Time']}
-          onChange={onChange}
-          onOk={onOk}
-        />
-        <br />
-        <MonthPicker
-          onChange={onChange}
-        />
-        <br />
-        <DatePicker
-          format="YYYY"
-          mode={this.state.mode}
-          value={this.state.time}
-          open={this.state.isopen}
-          onFocus={() => {this.setState({isopen: true})}}
-          onBlur={() => {this.setState({isopen: false})}}
-          onPanelChange={(v) => {
-              console.log(v)
-              this.setState({
-                time: v,
-                isopen: false
-              })
-          }}
-        />
+      <div style={{margin: 30}}>
+        <Select
+          showSearch
+          value={this.state.value}
+          placeholder={this.props.placeholder}
+          style={this.props.style}
+          defaultActiveFirstOption={true}
+          showArrow={true}
+          filterOption={false}
+          onSearch={this.handleSearch}
+          onChange={this.handleChange}
+        >
+          {options}
+        </Select>
       </div>
     )
   }
 }
 
-ReactDOM.render(<App />,  document.getElementById('root'));
-// defaultValue={[moment('2015/01/01', DATE_FORMAT_WITH_TIME), moment('2015/01/01', DATE_FORMAT_WITH_TIME)]}
+ReactDOM.render(<App placeholder="input search text" style={{ width: 200 }} />,  document.getElementById('root'));
+
+
+
+// code=utf-8&q=value
+// {ok: true, json: ƒ}
+
+/* function fake() {
+  const str = querystring.encode({
+    code: 'utf-8',
+    q: '汽车',
+  });
+  jsonp(`https://suggest.taobao.com/sug?${str}`)
+    .then(response => response.json())
+    .then(d => {
+      const result = d.result, data = [];
+      console.log(result)
+      result.forEach(r => {
+        data.push({
+          value: r[0],
+          text: r[1],
+        })
+      })
+      console.log(data)
+    })
+}
+fake() */
