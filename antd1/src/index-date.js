@@ -38,4 +38,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />,  document.getElementById('root'));
-// defaultValue={[moment('2015/01/01', DATE_FORMAT_WITH_TIME), moment('2015/01/01', DATE_FORMAT_WITH_TIME)]}  
+// defaultValue={[moment('2015/01/01', DATE_FORMAT_WITH_TIME), moment('2015/01/01', DATE_FORMAT_WITH_TIME)]}
