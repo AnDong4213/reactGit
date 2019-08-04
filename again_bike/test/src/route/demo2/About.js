@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom';
 
 export default class About extends React.Component {
     render() {
@@ -10,9 +10,9 @@ export default class About extends React.Component {
               console.log('不符合...')
               return false
             }
-            const eventID = parseInt(match.params.id)
-            console.log('符合...')
-            return !isNaN(eventID) && eventID % 2 === 1
+            const eventID = parseInt(match.params.id);
+            console.log('符合...');
+            return !isNaN(eventID) && eventID % 2 === 1;
         }
         return (
             <div>

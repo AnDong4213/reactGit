@@ -15,11 +15,12 @@ import Home from './Home'
 
 export default class IRouter extends React.Component {
   render() {
-    const loggedIn = true;
+    const loggedIn = false;
 
     return (
       <Router>
         <Home>
+
           <Switch>
             <Route path="/main" 
               render={() =>
@@ -54,6 +55,7 @@ export default class IRouter extends React.Component {
             <Route component={NoMatch}></Route>
             <p style={{color: 'red'}}>呵呵ddd</p>
           </Switch>
+
           <p style={{color: 'red'}}>哈哈</p>
         </Home>
       </Router>

@@ -18,7 +18,18 @@ export default class TodoList extends Component {
         // 使用了中间件.......
         const action = getTodoList()
         // console.log(store)
-        store.dispatch(action)
+        store.dispatch(action);
+        this.setState({
+            a: 1
+        })
+        this.setState({
+            a: 2
+        })
+        setTimeout(() => {
+            this.setState({
+                a: 3
+            })
+        })
     }
     handleStoreChange() {
         this.setState(store.getState())
@@ -36,6 +47,7 @@ export default class TodoList extends Component {
         store.dispatch(action)
     }
     render() {
+        console.log('render')
         return (
             <TodoListUI
                 inputValue = {this.state.inputValue}
@@ -43,7 +55,9 @@ export default class TodoList extends Component {
                 handleInputChange = {this.handleInputChange}
                 handleBtnClick = {this.handleBtnClick}
                 handleItemDelete = {this.handleItemDelete}
-            />
+            >
+                <h3>{this.state.a}</h3>
+            </TodoListUI>
         )
     }
 }

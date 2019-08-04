@@ -21,7 +21,8 @@ const initListAction = (data) => ({
 })
 
 export const getTodoList = () => {
-    return (dispatch) => {
+    return (dispatch, state) => {
+        // console.log(state())
         axios.get('./list.json').then(res => {
             let data = res.data.data
             const action = initListAction(data)

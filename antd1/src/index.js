@@ -1,39 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
+import './index2.css'
 
-import { Switch, Modal } from 'antd';
-const confirm = Modal.confirm;
-
-/* function onChange(checked) {
-    console.log(`switch to ${checked}`);
-} */
+import { Steps } from 'antd'
+const Step = Steps.Step;
 
 
 class App extends React.Component {
-    onChange = (id, checked) => {
-        console.log(`switch to ${checked}--${id}`);
-        console.log('ppp')
-    }
-    changeClick = () => {
-        console.log('changeClick');
-        confirm({
-            title: '确认框',
-            content: '快快快',
-            onOk() {
-                console.log('onOk')
-            },
-            onCancel() {
-                console.log('onCancel')
-            }
-        })
-    }
     render() {
         return (
-            <div style={{margin: 50}}>
-                <Switch onChange={(checked) => this.onChange('aa',checked)} />
-                <Switch onClick={this.changeClick} checked={true} />
+          <div style={{margin: 20}}>
+          <div className="ant-steps ant-steps-horizontal ant-steps-label-horizontal">
+
+            <div className="ant-steps-item ant-steps-item-finish">
+                <div className="ant-steps-item-tail"></div>
+                <div className="ant-steps-item-icon">
+                    <span className="ant-steps-icon">
+                        <span className="ant-steps-icon">1</span>
+                    </span>
+                </div>
+                <div className="ant-steps-item-content">
+                    <div className="ant-steps-item-title">aa</div>
+                </div>
             </div>
+
+            <div className="ant-steps-item ant-steps-item-process">
+                <div className="ant-steps-item-tail"></div>
+                <div className="ant-steps-item-icon">
+                    <span className="ant-steps-icon">2</span>
+                </div>
+                <div className="ant-steps-item-content">
+                    <div className="ant-steps-item-title">bb</div>
+                </div>
+            </div>
+
+            <div className="ant-steps-item ant-steps-item-wait">
+                <div className="ant-steps-item-tail"></div>
+                <div className="ant-steps-item-icon">
+                    <span className="ant-steps-icon">3</span></div>
+                <div className="ant-steps-item-content">
+                    <div className="ant-steps-item-title">cc</div>
+                </div>
+            </div>
+
+          </div>
+          </div>
         )
     }
 }

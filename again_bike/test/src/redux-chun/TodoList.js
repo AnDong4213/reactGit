@@ -5,7 +5,7 @@ import axios from 'axios'
 import store from './store'
 import { getInputChangeAction, getAddItemAction, getDeleteItemAction, initListAction } from './store/actionCreators'
 import TodoListUI from './TodoListUi'
-const todo = {id: 0, text: "安东", completed: false, he: {a: 'oo'}};
+const todo = {id: 0, text: "zhao安东", completed: false, he: {a: 'oo'}};
 /* let aa = {ww: 'ss',l: 'kk'};
 console.log(Object.assign({...todo},aa))
 console.log(Object.assign(todo,aa)) */
@@ -13,7 +13,11 @@ console.log(Object.assign(todo,aa)) */
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = store.getState();
+    this.state = {
+      haha: '我是哈哈',
+      ...store.getState(),
+      hehe: '我是呵呵'
+    };
 
     // 订阅了store, store里的数据只要发生改变，subscribe里的函数就会被自动执行
     // store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数
@@ -37,7 +41,8 @@ class TodoList extends React.Component {
         handleItemClick={this.handleItemClick}
         {...todo}
       >
-        <h3 style={{color: 'red'}}>假按规或紧迫</h3>
+        <h3 style={{color: 'red'}}>握手言和</h3>
+        <p>{this.state.hehe}</p>
       </TodoListUI>
     )
   };
@@ -60,5 +65,3 @@ class TodoList extends React.Component {
 }
 
 export default TodoList;
-
-

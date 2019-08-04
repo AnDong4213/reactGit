@@ -5,6 +5,7 @@ import { Input, Button, List } from 'antd'
 const TodoListUI = (props) => {
     return (
         <div style={{margin: '30px'}}>
+            {props.children}
             <div>
                 <Input
                     value={props.inputValue}

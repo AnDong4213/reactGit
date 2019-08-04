@@ -2,9 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
+
 // import App from './route/demo1';
-// import App from './route/demo2';
-import App from './redux-chun/TodoList';
+import App from './route/demo2';
+
+// import App from './redux-chun/TodoList';
+
+
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
