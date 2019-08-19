@@ -32,7 +32,7 @@ class App1 extends Component {
     const { count, size } = this.state;
     return (
       <div>
-        <button 
+        <button
           type="button"
           onClick={() => {this.setState({count: count + 1})}}
         >
@@ -86,14 +86,14 @@ function App() {
 
   return (
     <div>
-      <button 
+      <button
         type="button"
         onClick={() => {setCount(count + 1)}}
       >
         Click ({count}))
       </button>
       {
-        count % 2 ? 
+        count % 2 ?
         <p id="size" style={{cursor: 'pointer'}}>Size ({size.width}X{size.height})</p>
         : <span id="size" style={{cursor: 'pointer'}}>Size ({size.width}X{size.height})</span>
       }
@@ -135,7 +135,7 @@ function App2() {
 
   return (
     <div>
-      <button 
+      <button
         type="button"
         onClick={() => {setCount(count + 1)}}
       >

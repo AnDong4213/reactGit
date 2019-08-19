@@ -19,7 +19,7 @@ class Counter extends PureComponent {
   render() {
     const { props } = this;
     return (
-      <h1 onClick={props.onClick}>{props.count}</h1>
+      <h1 onClick={props.onClick}>{props.count}---</h1>
     )
   }
 }
@@ -51,6 +51,7 @@ function App2() {
     setClickCount((clickCount) => clickCount + 1);
   }, [])
   // useCallback是useMemo的一种变体而已  useMomo(() => fn)  useCallback(fn),如果useMemo的返回值是一个函数的话，可简写成useCallback的形式
+  //  memoization 是一个空间换时间的方式，存储执行结果，下次再次发生相同的输入会直接输出结果，提高了执行的速度
   useEffect(() => {
     it.current = setInterval(() => {
       setCount(count => count + 1)
@@ -64,7 +65,7 @@ function App2() {
 
   return (
     <div>
-      <button 
+      <button
         type="button"
         onClick={() => {setCount(count + 1)}}
       >

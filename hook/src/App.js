@@ -14,7 +14,7 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return ret;
 }
-//  { ...bindActionCreators({addTodo: createAdd}, dispatch) }
+// { ...bindActionCreators({addTodo: createAdd}, dispatch) }
 
 const Control = memo(function Control(props) {
   const { addTodo } = props;
@@ -127,7 +127,7 @@ function TodoList() {
         return {
           ...state,
           todos: todos.map(todo => {
-            return todo.id === payload ? 
+            return todo.id === payload ?
               {
                 ...todo,
                 complete: !todo.complete
@@ -156,7 +156,7 @@ function TodoList() {
     }
 
   }, [todos, incrementCount])
- 
+
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
     // setTodos(todos)

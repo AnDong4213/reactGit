@@ -4,7 +4,7 @@ import './App.css';
 const BatteryContext = createContext(100);
 const OnlineContext = createContext();
 
-const About = lazy(() => import(/* webpackChunkName: 'about' */'./About.js'))
+const About = lazy(() => import(/* webpackChunkName: 'about' */'./About.js'));
 
 class Leaf extends Component {
   /*
@@ -111,7 +111,7 @@ class App2 extends Component {
   return <div>{props.person.age}</div>;
 } */
 
-const Foo = memo((props) => {
+const Foo = memo(props => {
   console.log('render')
   return <div>{props.person.age}</div>;
 })
