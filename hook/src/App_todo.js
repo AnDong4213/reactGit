@@ -2,7 +2,7 @@ import React, { Component, PureComponent, useState, useEffect, createContext, us
 import './App.css';
 let idSeq = Date.now();
 
-const Control = memo(function Control(props) {
+const Control = memo(props => {
   const { addTodo } = props;
   const inputRef = useRef();
 
@@ -20,9 +20,7 @@ const Control = memo(function Control(props) {
   }
   return (
     <div>
-      <h1>
-        todos
-      </h1>
+      <h1>todos</h1>
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -45,7 +43,10 @@ function TodoItem(props) {
     removeTodo
   } = props;
   const onChange = () => {
-    toggleTodo(id)
+    toggleTodo(id);
+	console.log(id)
+	console.log(complete)
+	console.log(text)
   }
   const onRemove = () => {
     removeTodo(id)
@@ -79,18 +80,20 @@ const Todos = memo(props => {
 })
 
 const LS_KEY = '_$todos_';
+
+
 function TodoList() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = useCallback((todo) => {
+  const addTodo = useCallback(todo => {
     setTodos(todos => [...todos, todo])
   }, [])
-  const removeTodo = useCallback((id) => {
+  const removeTodo = useCallback(id => {
     setTodos(todos => todos.filter(todo => {
       return todo.id !== id
     }))
   }, [])
-  const toggleTodo = useCallback((id) => {
+  const toggleTodo = useCallback(id => {
     setTodos(todos => todos.map(todo => {
       return todo.id === id ? 
         {

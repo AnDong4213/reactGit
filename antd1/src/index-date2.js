@@ -18,7 +18,7 @@ function onOk(value) {
   console.log('onOk: ', value);
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
 
   state =  {
     isopen: false,
@@ -68,5 +68,5 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />,  document.getElementById('root'));
+// ReactDOM.render(<App />,  document.getElementById('root'));
 // defaultValue={[moment('2015/01/01', DATE_FORMAT_WITH_TIME), moment('2015/01/01', DATE_FORMAT_WITH_TIME)]}

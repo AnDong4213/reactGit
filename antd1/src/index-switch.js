@@ -10,7 +10,7 @@ const confirm = Modal.confirm;
 } */
 
 
-class App extends React.Component {
+export default class App extends React.Component {
     onChange = (id, checked) => {
         console.log(`switch to ${checked}--${id}`);
         console.log('ppp')
@@ -38,5 +38,5 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById('root'));
 

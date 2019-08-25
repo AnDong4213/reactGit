@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 
 import { Table } from 'antd';
 
-class App extends React.Component {
+export default class App extends React.Component {
 
     onChange = (pagination, filters, sorter) => {
        /*  console.log(pagination);
@@ -95,5 +95,5 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById('root'));
 

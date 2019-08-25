@@ -1,22 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AutoComplete, Input, Icon } from 'antd';
+import {
+  AutoComplete,
+  Input,
+  Icon
+} from 'antd';
 
 function onSelect(value) {
   console.log('onSelect', value);
 }
+
 function debounce(func, wait) {
-	let timer
-	
-	return function (...para) {
-		if (timer) {
-			clearTimeout(timer)
-		}
-		timer = setTimeout(() => {
-			func.apply(this, para)
-		}, wait)
-	}
+  let timer
+
+  return function (...para) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      func.apply(this, para)
+    }, wait)
+  }
 }
 
 class Complete extends React.Component {
@@ -30,23 +35,38 @@ class Complete extends React.Component {
       dataSource: [
         'value',
         'value + value',
-        'value + value + value',,
+        'value + value + value', ,
       ],
     });
   }
 
   render() {
-    const { dataSource } = this.state;
-    return (
-      <AutoComplete
-        dataSource={dataSource}
-        style={{ width: 200 }}
-        onSelect={onSelect}
-        onSearch={this.handleSearch}
-        placeholder="input here"
-      >
-      <Input suffix={<Icon type="search" />} />
-      </AutoComplete>
+    const {
+      dataSource
+    } = this.state;
+    return ( <
+      AutoComplete dataSource = {
+        dataSource
+      }
+      style = {
+        {
+          width: 200
+        }
+      }
+      onSelect = {
+        onSelect
+      }
+      onSearch = {
+        this.handleSearch
+      }
+      placeholder = "input here" >
+      <
+      Input suffix = {
+        <
+        Icon type = "search" / >
+      }
+      /> < /
+      AutoComplete >
     );
   }
 }
@@ -141,20 +161,5 @@ function Complete() {
   );
 } */
 
-ReactDOM.render(<Complete />, document.getElementById('root'));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ReactDOM.render(<Complete />, document.getElementById('root'));
+export default Complete;

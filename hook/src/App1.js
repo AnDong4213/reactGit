@@ -1,7 +1,7 @@
 import React, { Component, createContext, lazy, Suspense, PureComponent, memo } from 'react';
 import './App.css';
 
-const BatteryContext = createContext(100);
+const BatteryContext = createContext();
 const OnlineContext = createContext();
 
 const About = lazy(() => import(/* webpackChunkName: 'about' */'./About.js'));
@@ -33,12 +33,6 @@ class Leaf extends Component {
   }
 }
 
-class Middle extends Component {
-  render() {
-    return <Leaf />
-  }
-}
-
 class App extends Component {
   state = {
     battery: 46,
@@ -56,7 +50,8 @@ class App extends Component {
             <button type="button" onClick={() => this.setState({online: !online})}>
               Switch
             </button>
-            <Middle />
+			{String(online)}
+            <Leaf />
           </OnlineContext.Provider>
         </BatteryContext.Provider>
       </>
@@ -127,7 +122,7 @@ class App3 extends Component {
 
   }
   render() {
-    const { person } = this.state;
+    const { person, count } = this.state;
     return (
       <div>
         {/* <button onClick = {() => this.setState({count: this.state.count + 1})}>Add</button> */}
@@ -140,7 +135,7 @@ class App3 extends Component {
             })
           }}
         >
-          Add
+          Add{count}
         </button>
         <Foo person={person} cb={this.callback} />
       </div>
@@ -148,4 +143,4 @@ class App3 extends Component {
   }
 }
 
-export default App3;
+export default App;

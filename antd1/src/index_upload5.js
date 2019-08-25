@@ -127,4 +127,6 @@ class App extends React.Component {
 
 App = Form.create({})(App);
 
-ReactDOM.render(<App />,  document.getElementById('root'));
+export default App;
+
+// ReactDOM.render(<App />,  document.getElementById('root'));

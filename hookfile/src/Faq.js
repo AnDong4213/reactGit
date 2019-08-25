@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useRef } from 'react'
 
 /* export default function MeasureExample() {
   const [height, setHeight] = useState(0);
@@ -40,18 +40,53 @@ export default function MeasureExample() {
   );
 } */
 
-export default function Counter() {
-  const [count, setCount] = useState(0);
+function Example(props) {
+  // 把最新的 props 保存在一个 ref 中
+  let latestProps = useRef(props);
+  useEffect(() => {
+    latestProps.current = props;
+  });
 
   useEffect(() => {
-    const id = setInterval(() => {
+    function tick() {
+      // 在任何时候读取最新的 props
+      console.log(latestProps.current);
+    }
+	tick()
+    // const id = setInterval(tick, 1000);
+    // return () => clearInterval(id);
+  }, []); // 这个 effect 从不会重新执行
+  
+  return (
+	<div>
+		<h1>看看</h1>
+	</div>
+  )
+}
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  const id = useRef();
+	
+  useEffect(() => {
+    id.current = setInterval(() => {
       // setCount(count + 1); // 这个 effect 依赖于 `count` state  错误......
       setCount(a => a + 1)
     }, 1000);
-    return () => clearInterval(id);
   }, []); // 🔴 Bug: `count` 没有被指定为依赖
+  
+  useEffect(() => {
+	if (count > 10) {
+		clearInterval(id.current)
+	}
+  })
 
-  return <h1>{count}</h1>;
+  return (
+	<div>
+		<h1>{count}</h1>
+		<Example count={count} age="22" />
+	</div>
+  );
 }
 
 

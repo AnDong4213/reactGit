@@ -12,6 +12,7 @@ import './App.css';
     <h1 onClick={props.onClick}>{props.count}</h1>
   )
 }) */
+
 class Counter extends PureComponent {
   speak() {
     console.log(`counter is ${this.props.count}`)
@@ -48,9 +49,9 @@ function App2() {
     // console.log('onClick');
     // console.log(counterRef.current)
     counterRef.current.speak()
-    setClickCount((clickCount) => clickCount + 1);
+    setClickCount(c => c + 1);
   }, [])
-  // useCallback是useMemo的一种变体而已  useMomo(() => fn)  useCallback(fn),如果useMemo的返回值是一个函数的话，可简写成useCallback的形式
+  // useCallback是useMemo的一种变体而已  useMomo(() => fn)  useCallback(fn),如果useMemo的返回值是一个函数的话，可简写成useCallback的形式, useCallback不能返回值 return 
   //  memoization 是一个空间换时间的方式，存储执行结果，下次再次发生相同的输入会直接输出结果，提高了执行的速度
   useEffect(() => {
     it.current = setInterval(() => {

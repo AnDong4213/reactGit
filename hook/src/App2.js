@@ -117,9 +117,9 @@ class Bar extends Component {
   static contextType = CountContext;
   render() {
     // console.log(this)
-    const count = this.context;
+    const a = this.context;
     return (
-      <h1>{count}</h1>
+      <h1>{a}</h1>
     )
   }
 }

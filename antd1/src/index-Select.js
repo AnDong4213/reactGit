@@ -38,7 +38,7 @@ function fetch(value, callback) {
   timeout = setTimeout(fake, 300);
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = {
     data: [],
     value: '你看',
@@ -75,7 +75,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App placeholder="input search text" style={{ width: 200 }} />,  document.getElementById('root'));
+// ReactDOM.render(<App placeholder="input search text" style={{ width: 200 }} />,  document.getElementById('root'));
 
 
 
