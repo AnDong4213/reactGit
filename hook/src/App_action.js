@@ -2,6 +2,7 @@ import React, { Component, PureComponent, useState, useEffect, createContext, us
 import { createSet, createAdd, createToggle, createRemove } from './actions.js';
 import './App.css';
 let idSeq = Date.now();
+const LS_KEY = '_$todos_';
 
 function bindActionCreators(actionCreators, dispatch) {
   let ret = {};
@@ -9,6 +10,7 @@ function bindActionCreators(actionCreators, dispatch) {
     ret[key] = function(...args) {
       const actionCreator = actionCreators[key];
       const action = actionCreator(...args);
+      console.log(action)
       dispatch(action)
     }
   }
@@ -92,12 +94,12 @@ const Todos = memo(props => {
   )
 })
 
-const LS_KEY = '_$todos_';
 function TodoList() {
   const [todos, setTodos] = useState([]);
 
-  const dispatch = useCallback((action) => {
+  const dispatch = useCallback(action => {
     const { type, payload } = action;
+
     switch(type) {
       case 'set':
         setTodos(payload);
@@ -125,13 +127,12 @@ function TodoList() {
   }, [])
 
   useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-    // setTodos(todos)
+    const todos = JSON.parse(window.localStorage.getItem(LS_KEY) || '[]');
     dispatch(createSet(todos))
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(LS_KEY, JSON.stringify(todos))
+    window.localStorage.setItem(LS_KEY, JSON.stringify(todos))
   }, [todos])
 
   return (

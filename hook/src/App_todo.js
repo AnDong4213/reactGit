@@ -44,9 +44,6 @@ function TodoItem(props) {
   } = props;
   const onChange = () => {
     toggleTodo(id);
-	console.log(id)
-	console.log(complete)
-	console.log(text)
   }
   const onRemove = () => {
     removeTodo(id)
