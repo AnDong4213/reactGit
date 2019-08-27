@@ -2,6 +2,7 @@ import React, { Component, PureComponent, useState, useEffect, createContext, us
 import { createSet, createAdd, createToggle, createRemove } from './actions.js';
 import './App.css';
 let idSeq = Date.now();
+const LS_KEY = '_$todos_';
 
 function bindActionCreators(actionCreators, dispatch) {
   let ret = {};
@@ -92,7 +93,6 @@ const Todos = memo(props => {
   )
 })
 
-const LS_KEY = '_$todos_';
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [incrementCount, setIncrementCount] = useState(0);
@@ -140,7 +140,7 @@ function TodoList() {
     }
   }
 
-  const dispatch = useCallback((action) => {
+  const dispatch = useCallback(action => {
     const state = {
       todos,
       incrementCount
@@ -159,7 +159,6 @@ function TodoList() {
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-    // setTodos(todos)
     dispatch(createSet(todos))
   }, [])
 
@@ -179,6 +178,7 @@ function TodoList() {
           }, dispatch)
         }
       />
+	  <span>{incrementCount}</span>
     </div>
   )
 }

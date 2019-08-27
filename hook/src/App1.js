@@ -1,4 +1,5 @@
 import React, { Component, createContext, lazy, Suspense, PureComponent, memo } from 'react';
+// import emojiFlags from 'emoji-flags'
 import './App.css';
 
 const BatteryContext = createContext();
@@ -36,7 +37,15 @@ class Leaf extends Component {
 class App extends Component {
   state = {
     battery: 46,
-    online: false
+    online: false,
+	obj: {}
+  }
+  componentDidMount() {
+	  console.log(emojiFlags)
+	  console.log(emojiFlags.countryCode('DK'))
+	  this.setState({
+		obj: emojiFlags.countryCode('DK')
+	  })
   }
   render() {
     const { battery, online } = this.state;
@@ -54,7 +63,7 @@ class App extends Component {
             <Leaf />
           </OnlineContext.Provider>
         </BatteryContext.Provider>
-      </>
+      </>	
     )
   }
 }

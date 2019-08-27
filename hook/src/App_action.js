@@ -10,7 +10,6 @@ function bindActionCreators(actionCreators, dispatch) {
     ret[key] = function(...args) {
       const actionCreator = actionCreators[key];
       const action = actionCreator(...args);
-      console.log(action)
       dispatch(action)
     }
   }
@@ -21,7 +20,6 @@ function bindActionCreators(actionCreators, dispatch) {
 const Control = memo(function Control(props) {
   const { addTodo } = props;
   const inputRef = useRef();
-
   const onSubmit = (e) => {
     e.preventDefault();
     const newText = inputRef.current.value.trim();
