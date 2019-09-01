@@ -17,7 +17,7 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 // { ...bindActionCreators({addTodo: createAdd}, dispatch) }
 
-const Control = memo(function Control(props) {
+const Control = memo(props => {
   const { addTodo } = props;
   const inputRef = useRef();
 
@@ -171,12 +171,12 @@ function TodoList() {
   }, [])
 
   useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+    const todos = JSON.parse(window.localStorage.getItem(LS_KEY) || '[]');
     dispatch(createSet(todos))
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(LS_KEY, JSON.stringify(todos))
+    window.localStorage.setItem(LS_KEY, JSON.stringify(todos))
   }, [todos])
 
   return (

@@ -17,7 +17,7 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 // { ...bindActionCreators({addTodo: createAdd}, dispatch) }
 
-const Control = memo(function Control(props) {
+const Control = memo(props => {
   const { addTodo } = props;
   const inputRef = useRef();
   const onSubmit = (e) => {

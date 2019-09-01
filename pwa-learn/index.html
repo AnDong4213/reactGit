@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Learn Pwa</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>PWA</h1>
+  <script>
+    navigator.serviceWorker.register('./sw.js', {scope: '/'}).then(res => {
+      console.log(res)
+    }, error => {
+      console.log(error)
+    })
+
+
+
+
+
+    /* Promise.all('abc').then(res => {
+      console.log(res);  // ["a", "b", "c"]
+    }) */
+    /* Promise.race('abc').then(res => {
+      console.log(res === 'a');   // true
+    }) */
+
+    /* const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          console.log(xhr.response)
+        }
+      }
+    }
+    xhr.open('GET', '/userinfo.json', true);
+    xhr.send(null); */
+
+    // console.log(new Request())  // 报错..
+    /* const req = new Request('/userinfo.json', {
+      method: 'GET',
+      // body: {},  // post请求
+      headers: new Headers(),
+      credentials: 'include'
+    }); */
+    /* fetch('/userinfo.json', {
+      method: 'GET',
+      // body: {},  // post请求
+      headers: new Headers(),
+      credentials: 'include'
+    }).then(response => response.json())
+      .then(info => {
+        console.log(info)
+      }) */
+    /* fetch(req).then(response => response.json())
+      .then(info => {
+        console.log(info)
+      }) */
+
+  </script>
+  
+</body>
+</html>
