@@ -112,7 +112,7 @@ function TodoList() {
         break;
       case 'toggle':
         setTodos(todos => todos.map(todo => {
-          return todo.id === payload ? 
+          return todo.id === payload ?
             {
               ...todo,
               complete: !todo.complete
