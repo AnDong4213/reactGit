@@ -47,29 +47,28 @@ export default function MeasureExample() {
   );
 } */
 
-function Example(props) {
+  function Example(props) {
   // 把最新的 props 保存在一个 ref 中
-  let latestProps = useRef(props);
-  useEffect(() => {
-    latestProps.current = props;
-  });
+    let latestProps = useRef(props);
+    useEffect(() => {
+      latestProps.current = props;
+    });
 
-  useEffect(() => {
-    function tick() {
-      // 在任何时候读取最新的 props
-      console.log(latestProps.current);
-    }
-    tick()
-    // const id = setInterval(tick, 1000);
-    // return () => clearInterval(id);
-  }, []); // 这个 effect 从不会重新执行
+    useEffect(() => {
+      function tick() {
+        // 在任何时候读取最新的 props
+        console.log(latestProps.current);
+      }
+      tick()
+      // const id = setInterval(tick, 1000);
+      // return () => clearInterval(id);
+    }, [props]); // 这个 effect 从不会重新执行
 
-  return ( <
-    div >
-    <
-    h1 > 看看 < /h1> </
-    div >
-  )
+    return (
+      <div>
+        <h1>看看</h1>
+      </div >
+    )
 }
 
 export default function Counter() {
@@ -77,8 +76,8 @@ export default function Counter() {
   const id = useRef();
 
   useEffect(() => {
-    console.log(data.default()); // Hello world
-    console.log(data);
+    /* console.log(data.default()); // Hello world
+    console.log(data); */
     id.current = setInterval(() => {
       // setCount(count + 1); // 这个 effect 依赖于 `count` state  错误......
       setCount(a => a + 1)
@@ -91,17 +90,10 @@ export default function Counter() {
     }
   })
 
-  return ( <
-    div >
-    <
-    h1 > {
-      count
-    } < /h1> <
-    Example count = {
-      count
-    }
-    age = "22" / >
-    <
-    /div>
+  return (
+    <div>
+      <h1>{count}</h1>
+      <Example count={count} age = "22" />
+    </div>
   );
 }

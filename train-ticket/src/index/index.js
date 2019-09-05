@@ -8,8 +8,8 @@ import './index.css';
 import App from './App.jsx';
 
 ReactDom.render(
-  <Prodiver store={store}>
+  <Provider store={store}>
     <App />
-  </Prodiver>
+  </Provider>
   , document.getElementById('root')
 )

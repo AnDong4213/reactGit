@@ -16,6 +16,11 @@ class PicturesWall extends React.Component {
   };
 
   handleChange = ({ file, fileList }) => {
+	if (file.status === 'removed') {
+		this.setState({ fileList: [] });
+		return;
+	}
+	// fix: 修复上传或修改App的Logo不能删除的问题
     // this.setState({ fileList: [...fileList] });
     this.setState({ fileList: [file] });
   }
