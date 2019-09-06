@@ -6,7 +6,7 @@ function Indexk() {
     return () => {
       console.log('老弟，你走了!Index页面')
     }
-  })
+  }, [])
 
   return <h2>JSPang.com</h2>
 }

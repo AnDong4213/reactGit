@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 
 function List0() {
   useEffect(() => {
-    console.log('我是测试的...')
-  })
+    console.log('我是测试的...List0')
+  }, [])
 
   return <h2>我是测试的...</h2>;
 }
