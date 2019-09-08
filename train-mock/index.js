@@ -4,17 +4,17 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.status(200);
-  res.send('Hello World');
+  res.send('Hello World_19/09');
   res.end()
 })
 
 app.get('/rest', (req, res) => {
   res.status(200);
   res.json({
-    restlt: 1,
-    msg: 'Do'
+    restlt: 111,
+    msg: 'Dooo'
   })
   res.end()
 })
 
-app.listen(5000)
+app.listen(5000);
