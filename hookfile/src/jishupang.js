@@ -6,13 +6,17 @@ import List0 from './List0'
 
 function Example3() {
   const [count, setCount] = useState(0);
-  useEffect(() => {
-    console.log(`useEffect=>You clicked ${count} times`)
-  }, [count])
 
   useEffect(() => {
     console.log(22)
   }, [])
+
+  useEffect(() => {
+    console.log(`useEffect=>You clicked ${count} times`);
+    return () => {
+      console.log('====================')
+    }
+  }, [count])
 
   return(
     <div style={{margin: 20}}>
