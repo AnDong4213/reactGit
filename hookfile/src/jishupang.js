@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Index from './Indexk'
 import List from './List'
@@ -18,10 +18,14 @@ function Example3() {
     }
   }, [count])
 
+  const clickHandle = useCallback((a) => {
+	console.log(a);
+  }, [])
+
   return(
     <div style={{margin: 20}}>
       <h3 onClick={() => setCount(c => c + 1)}>{count}</h3>
-      <List0 />
+      <List0 hasDataExport clickHandle={w => clickHandle(w)} />
       <Router>
         <ul>
           <Link to="/">首页</Link>

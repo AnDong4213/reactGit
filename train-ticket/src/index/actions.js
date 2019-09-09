@@ -106,3 +106,10 @@ export function exchangeFromTo() {
     payload: departDate
   }
 } */
+
+export function fetchCityData() {
+  return {
+    type: 'ACTION_SET_IS_DATE_SELECTOR_VISIBLE',
+    payload: 2,
+  }
+}
