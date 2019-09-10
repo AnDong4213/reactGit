@@ -123,6 +123,7 @@ const Suggest = memo(props => {
     fetch(`/rest/search?key=${encodeURIComponent(searchKey)}`)
       .then(res => res.json())
       .then(data => {
+        // 副作用中异步请求中的同步问题 控制不能同时发出两个请求  检查返回值是否与当前的状态匹配
         const { result, searchKey: sKey } = data;
 
         if (sKey === searchKey) {
@@ -178,7 +179,7 @@ const CitySelector = memo(props => {
 
   const toAlpha = useCallback(alpha => {
     document.querySelector(`[data-cate='${alpha}']`).scrollIntoView()
-  })
+  }, [])
 
   const outputCitySections = () => {
     if (isLoading) {

@@ -10,6 +10,11 @@ import {
   ACTION_SET_DEPART_DATE
 } from './actions';
 
+/* const login = new Login('admin', '123');
+// console.log(login.checkPassword('123'));
+console.log(login[Object.getOwnPropertySymbols(login)[0]]);
+console.log(login);
+console.log(Object.getOwnPropertySymbols(login)); */
 // 未使用combineReducers
 /* export default (state = defaultState, action) => {
   if (action.type === CHANGE_INPUT_VALUE) {

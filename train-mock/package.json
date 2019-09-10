@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.8.16",
     "express": "^4.17.1",
+    "mocker-api": "^1.9.0",
     "nodemon": "^1.19.2"
   }
 }

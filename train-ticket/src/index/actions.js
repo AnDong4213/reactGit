@@ -8,6 +8,17 @@ export const ACTION_SET_IS_DATE_SELECTOR_VISIBLE = 'SET_IS_DATE_SELECTOR_VISIBLE
 export const ACTION_SET_HIGH_SPEED = 'SET_HIGH_SPEED';
 export const ACTION_SET_DEPART_DATE = 'SET_DEPART_DATE';
 
+/* const PASSWORD = Symbol();
+export class Login {
+  constructor(username, password) {
+    this.username = username;
+    this[PASSWORD] = password;
+  }
+  checkPassword(pwd) {
+    return this[PASSWORD] === pwd;
+  }
+} */
+
 export function setFrom(from) {
   return {
     type: ACTION_SET_FROM,
@@ -72,9 +83,9 @@ export function setSelectedCity(city) {
     if (currentSelectingLeftCity) {
       dispatch(setFrom(city))
     } else {
-      setTo(city)
+      dispatch(setTo(city))
     }
-    // dispatch(hideCitySelector())
+    dispatch(hideCitySelector())
   }
 }
 
@@ -108,8 +119,36 @@ export function exchangeFromTo() {
 } */
 
 export function fetchCityData() {
-  return {
-    type: 'ACTION_SET_IS_DATE_SELECTOR_VISIBLE',
-    payload: 2,
+  return (dispatch, getState) => {
+    const { isLoadingCityData } = getState();
+    if (isLoadingCityData) {
+      return
+    }
+    const cache = JSON.parse(window.localStorage.getItem('city_data_cache') || '{}');
+    if (Date.now() < cache.expires) {
+      dispatch(setCityData(cache.data));
+
+      return
+    }
+    dispatch(setIsLoadingCityData(true));
+
+    fetch(`/rest/cities?_${Date.now()}`)
+      .then(res => res.json())
+      .then(cityData => {
+        dispatch(setCityData(cityData));
+
+        window.localStorage.setItem(
+          'city_data_cache',
+          JSON.stringify({
+            expires: Date.now() + 60 * 1000,
+            data: cityData
+          })
+        )
+        dispatch(setIsLoadingCityData(false));
+      })
+      .catch(() => {
+        dispatch(setIsLoadingCityData(false))
+      })
+
   }
 }
