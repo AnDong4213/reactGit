@@ -1,27 +1,14 @@
-.header {
-    height: 44px;
-    line-height: 44px;
-    min-width: 240px;
-    background: #1ba9ba;
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-    position: relative;
-    padding: 0 15px;
+.depart-date {
+    font-size: 20px;
+    line-height: 45px;
+    height: 45px;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+    text-align: left;
+    color: #333;
 }
 
-.header-back {
-    position: absolute;
-    left: 0;
-    width: 42px;
-    height: 42px;
-}
-.header-title {
-    max-width: 216px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-    font-size: 100%;
-    margin: 0;
+.depart-week {
+    color: #888;
+    font-size: 15px;
 }
