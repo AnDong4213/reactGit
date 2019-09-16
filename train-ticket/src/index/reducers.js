@@ -15,6 +15,7 @@ import {
 console.log(login[Object.getOwnPropertySymbols(login)[0]]);
 console.log(login);
 console.log(Object.getOwnPropertySymbols(login)); */
+
 // 未使用combineReducers
 /* export default (state = defaultState, action) => {
   if (action.type === CHANGE_INPUT_VALUE) {
