@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Index from './Indexk'
 import List from './List'
 import List0 from './List0'
+import Echarts from './Echarts'
 
 function Example3() {
   const [count, setCount] = useState(0);
@@ -30,9 +31,11 @@ function Example3() {
         <ul>
           <Link to="/">首页</Link>
           <Link to="/list">列表</Link>
+		  <Link to="/echart">echart</Link>
         </ul>
         <Route path="/" exact component={Index} />
         <Route path="/list" component={List} />
+		<Route path="/echart" component={Echarts} />
       </Router>
     </div>
   )
