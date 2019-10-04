@@ -1,27 +1,16 @@
-.header {
-    height: 44px;
-    line-height: 44px;
-    min-width: 240px;
-    background: #1ba9ba;
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-    position: relative;
-    padding: 0 15px;
+.submit {
+    padding: 10px 0 17px 0;
 }
 
-.header-back {
-    position: absolute;
-    left: 0;
-    width: 42px;
-    height: 42px;
-}
-.header-title {
-    max-width: 216px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-    font-size: 100%;
+.submit-button {
+    background-color: #f90;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    border-radius: 6px;
+    border: 0;
+    padding: 0;
     margin: 0;
+    display: block;
+    width: 100%;
 }

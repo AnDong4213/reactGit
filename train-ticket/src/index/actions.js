@@ -111,12 +111,12 @@ export function exchangeFromTo() {
   }
 }
 
-/* export function setDepartDate(departDate) {
+export function setDepartDate(departDate) {
   return {
     type: ACTION_SET_DEPART_DATE,
     payload: departDate
   }
-} */
+}
 
 export function fetchCityData() {
   return (dispatch, getState) => {
@@ -127,7 +127,6 @@ export function fetchCityData() {
     const cache = JSON.parse(window.localStorage.getItem('city_data_cache') || '{}');
     if (Date.now() < cache.expires) {
       dispatch(setCityData(cache.data));
-
       return
     }
     dispatch(setIsLoadingCityData(true));

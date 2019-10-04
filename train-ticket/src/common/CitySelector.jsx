@@ -175,6 +175,7 @@ const CitySelector = memo(props => {
       return
     }
     fetchCityData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, cityData, isLoading])
 
   const toAlpha = useCallback(alpha => {
