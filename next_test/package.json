@@ -1,15 +1,26 @@
 {
-  "name": "next_test",
+  "name": "appnext",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "yarn build && next export",
+    "help": "next export -h"
   },
   "dependencies": {
-    "next": "9.0.5",
-    "react": "16.9.0",
-    "react-dom": "16.9.0"
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-less": "^1.0.1",
+    "less": "^3.10.3",
+    "next": "9.1.1",
+    "react": "16.10.2",
+    "react-dom": "16.10.2",
+    "react-jss": "^10.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-styled-components": "^1.10.6"
   }
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
 import Router from 'next/router'
 import { useRouter } from 'next/router'
-import Nav from '../../components/nav'
+import Nav from '../../components/nav/nav'
 // const Nav = lazy(() => import(/* webpackChunkName: 'nav' */'../../components/nav'));
 
 const Login = () => {

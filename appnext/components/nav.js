@@ -22,9 +22,6 @@ const Nav = () => (
           <a href={href}>{label}</a>
         </li>
       ))}
-      <li>
-        <img src="https://i.ytimg.com/vi/x8-GUzTUL2M/hqdefault.jpg" />
-      </li>
     </ul>
 
     <style jsx>{`
