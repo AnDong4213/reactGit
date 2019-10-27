@@ -9,15 +9,29 @@ const Home = () => {
 
   useEffect(() => {
     // console.log(Router.asPath);
-    // Router.events.on('routeChangeStart', handleRouteChange);
+    Router.events.on('routeChangeComplete', handleRouteChange);
 
+    /* Router.beforePopState(({ url, as, options }) => {
+      console.log(url)
+      console.log(as)
+      console.log(options)
+      return true
+    }) */
   }, [])
 
   const handleRouteChange = url => {
+    // console.log(url)
     if (url !== "/" && url !== "login") {
-       // Router.push("/login");
-       window.location.href = '/login'
+      // Router.push("/login");
+      // window.location.href = '/login'
     }
+  }
+  const login = id => {
+    console.log(id)
+    Router.push('/login')
+  }
+  const post = () => {
+    Router.push({pathname: '/post', query: { pid: 'ReactDom--' }, shallow: true})
   }
 
   return (
@@ -39,16 +53,17 @@ const Home = () => {
           ))
         }
         {/* <Link href='/post'> */}
-        <Link href={{ pathname: '/post', query: { pid: 'React' } }}>
+        <Link href={{ pathname: '/post', query: { pid: 'ReactDom' } }}>
           <a className='card'>
             <h3>Post</h3>
           </a>
         </Link>
+        <h3 onClick={post}>Post-click</h3>
+        {/* <Link>支持任何有onClick事件的组件。 如果你不包含<a>标签，它仅给组件添加onClick事件，而不会添加href属性。 */}
         <Link href='/login'>
-          <a className='card'>
-            <h3>Login</h3>
-          </a>
+          <h3>Login</h3>
         </Link>
+        <h3 onClick={() => login('123')}>Login-click</h3>
         <Link href='/register'>
           <a className='card'>
             <h3>Register</h3>
