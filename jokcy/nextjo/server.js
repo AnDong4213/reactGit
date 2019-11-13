@@ -18,6 +18,14 @@ app.prepare().then(() => {
     })
     ctx.respond = false
   })
+  router.get('/b/:id', async ctx => {
+    const id = ctx.params.id
+    await handle(ctx.req, ctx.res, {
+      pathname: '/b',
+      query: { id }
+    })
+    ctx.respond = false
+  })
   server.use(router.routes())
 
   server.use(async (ctx, next) => {

@@ -2,10 +2,13 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Router from 'next/router'
-import Nav from '../components/nav'
+import { connect } from 'react-redux'
 
+import Nav from '../components/nav'
 import { Button } from 'antd'
-const events = [
+import store from '../store/store'
+
+/* const events = [
   'routeChangeStart',
   'routeChangeComplete',
   'routeChangeError',
@@ -13,7 +16,6 @@ const events = [
   'hashChangeStart',
   'hashChangeComplete',
 ]
-
 function makeEvent(type) {
   return (...args) => {
     console.log(type, ...args);
@@ -21,10 +23,12 @@ function makeEvent(type) {
 }
 events.forEach(event => {
   Router.events.on(event, makeEvent(event))
-})
+  // 如果您不想再听该事件，则可以使用以下off方法退订
+  // Router.events.off('routeChangeStart', handleRouteChange)
+}) */
 
-const Home = () => {
-
+const Home = props => {
+  // console.log(props)
   const gotoB = () => {
     Router.push({
       pathname: '/b',
@@ -33,18 +37,56 @@ const Home = () => {
       }
     }, '/b/77')
   }
+
   return (
-    <div>
+    <div style={{margin: 20}}>
       <Head>
         <title>Home</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Nav />
-      <Link href="/a?id=99" as="/a/99">
+      <Link href="/a?id=998" as="/a/998">
         <Button type='primary'>Index</Button>
       </Link>
-      <p onClick={gotoB}>跳转B</p>
+      <p style={{margin: 20}} onClick={gotoB}>跳转B</p>
+      <h3>{props.counter}</h3>
+      <h3>{props.username}</h3>
+      <input value={props.username} onChange={(e) => props.rename(e.target.value)} />
+      <button onClick={() => props.add(props.counter)}>Add count</button>
+      <style jsx>{`
+        p {
+          color: blue
+        }
+      `}</style>
+      <style jsx global>{`
+        .ic {
+          color: red
+        }
+      `}</style>
     </div>
   )
 }
-export default Home
+const mapStateToProps = state => {
+  return {
+    counter: state.counter.count,
+    username: state.user.username
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    add(num) {
+      dispatch({
+        type: 'ADD',
+        num
+      })
+    },
+    rename(name) {
+      dispatch({
+        type: 'UPDATE_USERNAME',
+        name
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

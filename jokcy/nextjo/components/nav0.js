@@ -12,7 +12,7 @@ const links = [
 
 const Nav = (props) => {
   useEffect(() => {
-    console.log(props);
+    // console.log(props);
   }, [])
 
   return (
