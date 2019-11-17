@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 import Nav from '../components/nav'
 import { Button } from 'antd'
-import store from '../store/store'
+import { add } from '../store/store'
 
 /* const events = [
   'routeChangeStart',
@@ -66,6 +66,12 @@ const Home = props => {
     </div>
   )
 }
+Home.getInitialProps = async ctx => {
+  console.log('ctx')
+  // ctx.reduxStore(add(3))
+  return {}
+}
+
 const mapStateToProps = state => {
   return {
     counter: state.counter.count,

@@ -5,7 +5,7 @@ import 'antd/dist/antd.css'
 
 import MyContext from './../lib/my-context'
 import testHoc from './../lib/with-redux'
-import store from '../store/store'
+// import store from '../store/store'
 
 class MyApp extends App {
   state = {
@@ -13,19 +13,22 @@ class MyApp extends App {
     context: '我是useContext'
   }
   static async getInitialProps(appContext) {
+    console.log(appContext)
+    const { reduxStore } = appContext
     const appProps = await App.getInitialProps(appContext)
-    // console.log(appProps); {pageProps: Object}
+    // console.log(appProps); // {pageProps: Object}
     return {
       ...appProps
+      // ...appContext
     }
   }
 
   render() {
-    const { Component, pageProps, router, err } = this.props
+    const { Component, pageProps, reduxStore } = this.props
     console.log(this.props);
     return (
       <div>
-        <Provider store={store}>
+        <Provider store={reduxStore}>
           <MyContext.Provider value={this.state.context}>
             <Component { ...pageProps } count2={this.state.count} />
             <button onClick={() => this.setState({context: this.state.context+'111'})}>useContext测试</button>

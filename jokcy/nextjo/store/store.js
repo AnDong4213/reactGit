@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -32,7 +32,7 @@ function userReducer(state = userInitialState, action) {
   }
 }
 // action creator
-function add(num) {
+export function add(num) {
   return {
     type: ADD,
     num
@@ -53,12 +53,12 @@ const allReducers = combineReducers({
   user: userReducer
 })
 
-store.dispatch(add(9))
+/* store.dispatch(add(9))
 store.subscribe(() => {
   // console.log(store.getState())
 })
 store.dispatch(addAsync(3))
-store.dispatch({ type: UPDATE_USERNAME, name: 'andong' })
+store.dispatch({ type: UPDATE_USERNAME, name: 'andong' }) */
 
 export default function initializeStore(state) {
   const store = createStore(
