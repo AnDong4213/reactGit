@@ -13,19 +13,16 @@ class MyApp extends App {
     context: '我是useContext'
   }
   static async getInitialProps(appContext) {
-    console.log(appContext)
-    const { reduxStore } = appContext
     const appProps = await App.getInitialProps(appContext)
-    // console.log(appProps); // {pageProps: Object}
+    console.log(appProps); // {pageProps: Object}
     return {
       ...appProps
-      // ...appContext
     }
   }
 
   render() {
     const { Component, pageProps, reduxStore } = this.props
-    console.log(this.props);
+    // console.log(this.props)
     return (
       <div>
         <Provider store={reduxStore}>

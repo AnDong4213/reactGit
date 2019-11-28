@@ -67,8 +67,7 @@ const Home = props => {
   )
 }
 Home.getInitialProps = async ctx => {
-  console.log('ctx')
-  // ctx.reduxStore(add(3))
+  ctx.reduxStore.dispatch(add(3))
   return {}
 }
 

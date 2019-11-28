@@ -173,6 +173,7 @@ function getOrCreateStore(initialState) {
     }
 
     constructor(props) {
+      console.log(props);
       super(props);
       this.reduxStore = getOrCreateStore(props.initialReduxState);
     }
@@ -182,7 +183,7 @@ function getOrCreateStore(initialState) {
         reduxStore: this.reduxStore,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 47
+          lineNumber: 48
         },
         __self: this
       }));
@@ -190,6 +191,34 @@ function getOrCreateStore(initialState) {
 
   };
 });
+/* export default App => {
+  class AppWithRedux extends React.Component {
+    constructor(props) {
+      console.log(props);
+      super(props)
+      this.reduxStore = getOrCreateStore(props.initialReduxState)
+    }
+
+    render() {
+      return <App {...this.props} reduxStore={this.reduxStore} />
+    }
+  }
+  AppWithRedux.getInitialProps = async appContext => {
+    const reduxStore = getOrCreateStore()
+    appContext.ctx.reduxStore = reduxStore
+
+    let appProps = {}
+    if (typeof App.getInitialProps === 'function') {
+      appProps = await App.getInitialProps(appContext)
+    }
+    return {
+      ...appProps,
+      initialReduxState: reduxStore.getState(),
+    }
+  }
+
+  return AppWithRedux
+} */
 
 /***/ }),
 
@@ -824,7 +853,7 @@ __webpack_require__.r(__webpack_exports__);
 const exampleInitialState = {
   lastUpdate: 0,
   light: false,
-  count: 0
+  count: 2
 };
 const actionTypes = {
   TICK: 'TICK',

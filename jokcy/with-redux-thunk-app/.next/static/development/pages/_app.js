@@ -136,6 +136,7 @@ function getOrCreateStore(initialState) {
 
         Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_10__["default"])(this, AppWithRedux);
 
+        console.log(props);
         _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_11__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_12__["default"])(AppWithRedux).call(this, props));
         _this.reduxStore = getOrCreateStore(props.initialReduxState);
         return _this;
@@ -148,7 +149,7 @@ function getOrCreateStore(initialState) {
             reduxStore: this.reduxStore,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 47
+              lineNumber: 48
             },
             __self: this
           }));
@@ -159,6 +160,34 @@ function getOrCreateStore(initialState) {
     }(react__WEBPACK_IMPORTED_MODULE_15___default.a.Component)
   );
 });
+/* export default App => {
+  class AppWithRedux extends React.Component {
+    constructor(props) {
+      console.log(props);
+      super(props)
+      this.reduxStore = getOrCreateStore(props.initialReduxState)
+    }
+
+    render() {
+      return <App {...this.props} reduxStore={this.reduxStore} />
+    }
+  }
+  AppWithRedux.getInitialProps = async appContext => {
+    const reduxStore = getOrCreateStore()
+    appContext.ctx.reduxStore = reduxStore
+
+    let appProps = {}
+    if (typeof App.getInitialProps === 'function') {
+      appProps = await App.getInitialProps(appContext)
+    }
+    return {
+      ...appProps,
+      initialReduxState: reduxStore.getState(),
+    }
+  }
+
+  return AppWithRedux
+} */
 
 /***/ }),
 
@@ -10404,7 +10433,7 @@ __webpack_require__.r(__webpack_exports__);
 var exampleInitialState = {
   lastUpdate: 0,
   light: false,
-  count: 0
+  count: 2
 };
 var actionTypes = {
   TICK: 'TICK',

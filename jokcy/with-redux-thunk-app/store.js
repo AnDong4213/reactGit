@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 const exampleInitialState = {
   lastUpdate: 0,
   light: false,
-  count: 0,
+  count: 2,
 }
 
 export const actionTypes = {

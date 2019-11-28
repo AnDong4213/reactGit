@@ -24,5 +24,15 @@ class Index extends React.Component {
     return <Examples />
   }
 }
+Index.getInitialProps = async ctx => {
+  console.log(ctx)
+  const promise = new Promise(resolve => {
+    resolve({
+      name: 'QQ',
+      time: Date.now() - 60 * 1000
+    })
+  })
+  return await promise
+}
 
 export default connect()(Index)

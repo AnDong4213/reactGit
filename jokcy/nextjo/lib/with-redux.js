@@ -39,28 +39,13 @@ export default Comp => {
   }
 
   // WithReduxApp.getInitialProps = Comp.getInitialProps
-  WithReduxApp.getInitialProps = async ctx => {
-    let reduxStore
-
-    if (isServer) {
-      const { req } = ctx.ctx
-      const session = req.session
-
-      if (session && session.userInfo) {
-        reduxStore = getOrCreateStore({
-          user: session.userInfo,
-        })
-      } else {
-        reduxStore = getOrCreateStore()
-      }
-    } else {
-      reduxStore = getOrCreateStore()
-    }
-    ctx.reduxStore = reduxStore
+  WithReduxApp.getInitialProps = async appContext => {
+    const reduxStore = getOrCreateStore()
+    appContext.ctx.reduxStore = reduxStore
 
     let appProps = {}
     if (typeof Comp.getInitialProps === 'function') {
-      appProps = await Comp.getInitialProps(ctx)
+      appProps = await Comp.getInitialProps(appContext)
     }
     return {
       ...appProps,
