@@ -111,8 +111,8 @@ class Numberic {
     return num.reduce((p, n) => (p + n), 10)
   }
 }
-// console.log(new Numberic().add(1, 2));  //  13
-new Numberic().add(1, 'u')
+console.log(new Numberic().add(1, 2));  //  13
+// new Numberic().add(1, 'u')
 
 
 

@@ -7,6 +7,102 @@
   <title>Document</title>
 </head>
 <body>
+  <p>
+    input1=><input type="text" id="input1">
+</p>
+  <p>
+      input2=>
+      <input type="text" id="input2">
+  </p>
+  <div>
+      我每次比input1的值加1=>
+      <span id="span"></span>
+  </div>
+
+
   <script src="./dist/main.js"></script>
+
+  <script>
+    // 只有使用var, let等操作符才是定义变量，而不使用var，直接a=1;,这样a的含义为window的一个属性，并不是我们所说的变量的概念。使用 var定义的任何变量，其configurable属性值都为false,定义对象也是一样
+    /* var bb = 6;
+    console.log(Object.getOwnPropertyDescriptor(window, 'bb'));  // {value: 6, writable: true, enumerable: true, configurable: false}  // configurable为false
+    console.log(window)
+
+    cc = 8;
+    console.log(Object.getOwnPropertyDescriptor(window, 'cc')); // {value: 8, writable: true, enumerable: true, configurable: true}  // configurable为true
+
+    var bObj = {
+      name: 'bbb'
+    }
+    console.log(Object.getOwnPropertyDescriptor(window, 'bObj'));   // configurable为false
+
+    // 这里需要说明的一点是,使用字面量定义的对象,该对象内部的属性的数据描述符属性都为true
+    console.log(Object.getOwnPropertyDescriptor(bObj, 'name')); */
+
+    var oInput1 = document.getElementById('input1');
+    var oInput2 = document.getElementById('input2');
+    var oSpan = document.getElementById('span');
+    var oImg = document.getElementById('img');
+    var obj = {};
+
+    Object.defineProperties(obj, {
+      val1: {
+        configurable: true,
+        get: function() {
+          oInput1.value = 1;
+          oInput2.value = 1;
+          oSpan.innerHTML = 1;
+          return 10;
+        },
+        set: function(newValue) {
+          oInput2.value = newValue;
+          oSpan.innerHTML = Number(newValue) ? Number(newValue) : 0
+        }
+      },
+      val2: {
+        configurable: true,
+        get() {
+          oInput1.value = 1;
+          oInput2.value = 1;
+          oSpan.innerHTML = 1;
+          return 1
+        },
+        set(newValue) {
+          oInput1.value = newValue;
+          oSpan.innerHTML = Number(newValue)+1;
+        }
+      }
+    })
+    oInput1.value = obj.val1;
+    oInput1.addEventListener('keyup', function() {
+      obj.val1 = oInput1.value;
+    }, false)
+    oInput2.addEventListener('keyup', function() {
+      obj.val2 = oInput2.value;
+  }, false)
+
+
+
+  /* const myFunction = new Function('users', 'salary', 'return users * salary');
+  console.log(myFunction(21, 34));
+  // 每个 JavaScript 函数实际上都是一个 Function 对象
+  console.log((function add(){}).constructor === Function); */  // true
+  // console.log()
+
+  // AsyncFunction 构造函数用来创建新的 异步函数 对象，JavaScript 中每个异步函数都是  AsyncFunction 的对象。
+  /* const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+  const fetchPage  = new AsyncFunction('url', 'return await fetch(url)')
+  fetchPage("https://dog.ceo/api/breeds/image/random").then(response => {
+    return response.json()
+   })
+   .then(res => {
+     console.log(res);
+   }); */
+
+  /* var arr1 = [1, 2];
+  console.log(Object.prototype.toString.call(arr1)) */
+
+
+  </script>
 </body>
 </html>

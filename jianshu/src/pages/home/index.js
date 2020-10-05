@@ -1,4 +1,4 @@
-// PureComponent最好与immutable一起使用，否则可能会出现坑... 
+// PureComponent最好与immutable一起使用，否则可能会出现坑...
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
@@ -69,8 +69,3 @@ const mapDispatch = (dispatch) => ({
 })
 
 export default connect(mapState, mapDispatch)(Home);
-
-
-
-
-
